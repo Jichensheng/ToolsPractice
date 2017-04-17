@@ -320,8 +320,3 @@ public class CrashLog
     return "CrashLog{\nid='" + this.id + '\'' + "\n display='" + this.display + '\'' + "\n product='" + this.product + '\'' + "\n device='" + this.device + '\'' + "\n board='" + this.board + '\'' + "\n cpu_abi='" + this.cpuAbi + '\'' + "\n cpu_abi2='" + this.cpuAbi2 + '\'' + "\n manufacturer='" + this.manufacturer + '\'' + "\n brand='" + this.brand + '\'' + "\n model='" + this.model + '\'' + "\n bootloader='" + this.bootloader + '\'' + "\n radio='" + this.radio + '\'' + "\n hardware='" + this.hardware + '\'' + "\n serial='" + this.serial + '\'' + "\n type='" + this.type + '\'' + "\n tags='" + this.tags + '\'' + "\n fingerprint='" + this.fingerprint + '\'' + "\n time=" + this.time + "\n user='" + this.user + '\'' + "\n host='" + this.host + '\'' + "\n error='" + this.error + '\'' + "\n width=" + this.width + "\n height=" + this.height + "\n dpi=" + this.dpi + "\n loginName='" + this.loginName + '\'' + "\n versionName='" + this.versionName + '\'' + "\n versionCode='" + this.versionCode + '\'' + "\n" + '}';
   }
 }
-
-/* Location:           C:\Users\Administrator\Desktop\文档大全\反编译\jd-gui\jd-gui\classes-dex2jar.jar
- * Qualified Name:     com.heshun.newcrash.crash.CrashLog
- * JD-Core Version:    0.6.2
- */
