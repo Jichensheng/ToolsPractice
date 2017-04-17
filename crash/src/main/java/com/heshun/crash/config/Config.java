@@ -20,19 +20,6 @@ public class Config {
 
 
 	/**
-	 * 阳光充电服务器IP地址
-	 */
-	//https://172.31.59.2:8443/cpm/a/login
-//
-//	public static String UPLOAD = "http://sun.jsclp.cn/cpm";
-//	public static String SERVER = "http://172.31.59.2:8888/cpm/api/app/";
-//	public static String SERVER = "https://172.31.59.2:8443/cpm/api/app/";
-
-//	public static String SERVER = "http://sun.app.jsclp.cn/cpm/api/app/";
-	public static String SERVER = "http://test.web.jsclp.cn/cpm/api/app/";
-	public static String UPLOAD = "http://sun.jsclp.cn/cpm";
-
-	/**
 	 * 应用缓存根目录
 	 */
 	public static final String APP_ROOT_DIR = ".CrashTraffic";
