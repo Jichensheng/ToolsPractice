@@ -63,16 +63,19 @@ public class HttpMethods {
      */
     public void getTopMovie(Subscriber<List<Movies>> subscriber, int start, int count){
 
-//        movieService.getTopMovie(start, count)
-//                .map(new HttpResultFunc<List<Movies>>())
-//                .subscribeOn(Schedulers.io())
-//                .unsubscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(subscriber);
+/*
+        movieService.getTopMovie(start, count)
+                .map(new HttpResultFunc<List<Movies>>())
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+*/
+        //Todo 包一层HttpResult目的？ http://gank.io/post/56e80c2c677659311bed9841 2.相同格式的Http请求数据该如何封装
+        Observable observable = movieService.getTopMovie(start, count)// Server的getTopMovie返回类型为Observable<HttpResult<List<Movies>>>
+                .map(new HttpResultFunc<List<Movies>>());//map通过Func1将HttpResult<List<Movies>>的发射流转换成List<Movies>流
 
-        Observable observable = movieService.getTopMovie(start, count)
-                .map(new HttpResultFunc<List<Movies>>());
-
+        //将被观察者与观察者关联，此处的观察者是重点
         toSubscribe(observable, subscriber);
     }
 
@@ -86,7 +89,7 @@ public class HttpMethods {
     /**
      * 用来统一处理Http的resultCode,并将HttpResult的Data部分剥离出来返回给subscriber
      * RxJava的map函数只有一个参数，参数一般是Func1，Func1的<I,O>I,O模版分别为输入和输出值的类型，实现Func1的call方法对I类型进行处理后返回O类型数据
-     * @param <T>   Subscriber真正需要的数据类型，也就是Data部分的数据类型
+     * @param <T>   Subscriber真正需要的数据类型，也就是Data部分的数据类型,此案例T为List<Movies>
      */
     private class HttpResultFunc<T> implements Func1<HttpResult<T>, T>{
 

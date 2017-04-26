@@ -19,10 +19,17 @@ public class Movies {
 
     @Override
     public String toString() {
-        return "Movies.id=" + id
-                + " Movies.title=" + title
-                + " Movies.year=" + year
-                + " Movies.originalTitle=" + original_title + casts.toString() + directors.toString() + " | ";
+        return "Movies{" +
+                "id='" + id + '\'' +
+                ", alt='" + alt + '\'' +
+                ", year='" + year + '\'' +
+                ", title='" + title + '\'' +
+                ", original_title='" + original_title + '\'' +
+                ", genres=" + genres +
+                ", casts=" + casts +
+                ", directors=" + directors +
+                ", images=" + images +
+                '}'+"\n\n\n";
     }
 
     public String getId() {
