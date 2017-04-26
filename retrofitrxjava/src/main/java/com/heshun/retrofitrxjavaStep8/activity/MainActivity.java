@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.heshun.retrofitrxjavaStep8.R;
 import com.heshun.retrofitrxjavaStep8.entity.Movies;
 import com.heshun.retrofitrxjavaStep8.http.HttpMethods;
-import com.heshun.retrofitrxjavaStep8.subscribers.ProgressSubscriber;
+import com.heshun.retrofitrxjavaStep8.subscribers.CommonSubscriber;
 import com.heshun.retrofitrxjavaStep8.subscribers.SubscriberOnNextListener;
 
 import java.util.List;
@@ -59,6 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
     //进行网络请求
     private void getMovie(){
-        HttpMethods.getInstance().getTopMovie(new ProgressSubscriber(getTopMovieOnNext, MainActivity.this), 0, 10);
+        HttpMethods.getInstance().getTopMovie(new CommonSubscriber(getTopMovieOnNext, MainActivity.this), 0, 10);
     }
 }

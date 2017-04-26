@@ -79,6 +79,12 @@ public class HttpMethods {
         toSubscribe(observable, subscriber);
     }
 
+    /**
+     * 让被观察者和观察者更直观
+     * @param o
+     * @param s
+     * @param <T>
+	 */
     private <T> void toSubscribe(Observable<T> o, Subscriber<T> s){
          o.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -87,6 +93,7 @@ public class HttpMethods {
     }
 
     /**
+     * 脱掉HttpResult<T>层
      * 用来统一处理Http的resultCode,并将HttpResult的Data部分剥离出来返回给subscriber
      * RxJava的map函数只有一个参数，参数一般是Func1，Func1的<I,O>I,O模版分别为输入和输出值的类型，实现Func1的call方法对I类型进行处理后返回O类型数据
      * @param <T>   Subscriber真正需要的数据类型，也就是Data部分的数据类型,此案例T为List<Movies>
@@ -98,7 +105,7 @@ public class HttpMethods {
             if (httpResult.getCount() == 0) {
                 throw new ApiException(100);
             }
-            return httpResult.getSubjects();
+            return httpResult.getMovies();
         }
     }
 
