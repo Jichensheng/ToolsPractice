@@ -3,7 +3,20 @@ package com.heshun.retrofitrxjavaStep8.entity;
 import java.util.List;
 
 /**
- * Created by liukun on 16/3/5.
+ {
+ "rating": { },
+ "genres": [ ],
+ "title": "肖申克的救赎",
+ "casts": [ ],
+ "collect_count": 1055379,
+ "original_title": "The Shawshank Redemption",
+ "subtype": "movie",
+ "directors": [ ],
+ "year": "1994",
+ "images": { },
+ "alt": "https://movie.douban.com/subject/1292052/",
+ "id": "1292052"
+ }
  */
 public class Movies {
 

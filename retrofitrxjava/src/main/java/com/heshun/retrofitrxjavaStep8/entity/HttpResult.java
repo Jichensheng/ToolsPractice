@@ -1,7 +1,14 @@
 package com.heshun.retrofitrxjavaStep8.entity;
 
 /**
- * Created by liukun on 16/3/5.
+ *Json模板
+ *  {
+ "count": 10,
+ "start": 0,
+ "total": 250,
+ "subjects": [{},{},{}...],
+ "title": "豆瓣电影Top250"
+ }
  */
 public class HttpResult<T> {
 
