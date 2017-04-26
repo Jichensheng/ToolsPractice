@@ -39,7 +39,6 @@ public interface ApiService {
 	//固定URL测试Map参数
 	@GET("book/search")
 	Call<BookSearchResponse> getSearchBooksMap(@QueryMap Map<String, Object> options);
-
 	//配合Rxjava测试
 	@GET("book/search")
 	Observable<BookSearchResponse> getRxBooks(@Query("q") String name);

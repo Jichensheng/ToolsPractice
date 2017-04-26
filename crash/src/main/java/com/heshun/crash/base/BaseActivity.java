@@ -20,8 +20,3 @@ public class BaseActivity extends AppCompatActivity
     super.onDestroy();
   }
 }
-
-/* Location:           C:\Users\Administrator\Desktop\文档大全\反编译\jd-gui\jd-gui\classes-dex2jar.jar
- * Qualified Name:     com.heshun.newcrash.base.BaseActivity
- * JD-Core Version:    0.6.2
- */

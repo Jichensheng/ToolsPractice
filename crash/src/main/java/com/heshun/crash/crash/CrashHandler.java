@@ -14,7 +14,7 @@ import com.heshun.crash.utils.LocalFileManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -53,8 +53,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 		if (crashLog != null) {
 			crashLog.setError(sb.toString());
 		}
-		FileOutputStream fos = null;
-		ObjectOutputStream oos = null;
+		OutputStreamWriter oStreamWriter=null;
 		try {
 			if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 				File dir = LocalFileManager.getInstance().getCrashLogDir();
@@ -62,21 +61,16 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 				if (!file.exists()) {
 					file.createNewFile();
 				}
-
-				fos = new FileOutputStream(file);
-				oos = new ObjectOutputStream(fos);
+				oStreamWriter = new OutputStreamWriter(new FileOutputStream(file), "utf-8");
 				if (null != crashLog)
-					oos.writeObject(crashLog.toString());
+				oStreamWriter.append(crashLog.toString());
 			}
 			return CRASHFILENAME;
 		} catch (Exception e) {
 		} finally {
 			try {
-				if (oos != null) {
-					oos.close();
-				}
-				if (fos != null) {
-					fos.close();
+				if (oStreamWriter != null) {
+					oStreamWriter.close();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -107,6 +101,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 		localStringBuilder.append(localStringWriter.toString());
 		if (this.crashLog != null)
 			this.crashLog.setError(localStringBuilder.toString());
+		//此处将crashLog封装成json字符串，post出去即可
 	}
 
 	/**
@@ -191,8 +186,12 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 		this.crashLog = new CrashLog();
 		collectDeviceInfo(this.mContext);
 		saveCrashLog2File(paramThrowable);
+/*		//网络允许的话上传
+		if (true) {
+			uploadLog(paramThrowable);
+		}*/
 		try {
-			Thread.sleep(2000L);
+			Thread.sleep(2000);
 			ActivityStack.exic();
 			return;
 		} catch (InterruptedException e) {
