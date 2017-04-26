@@ -2,7 +2,7 @@ package com.heshun.retrofitrxjavaStep8.http;
 
 
 import com.heshun.retrofitrxjavaStep8.entity.HttpResult;
-import com.heshun.retrofitrxjavaStep8.entity.Subject;
+import com.heshun.retrofitrxjavaStep8.entity.Movies;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -61,17 +61,17 @@ public class HttpMethods {
      * @param start 起始位置
      * @param count 获取长度
      */
-    public void getTopMovie(Subscriber<List<Subject>> subscriber, int start, int count){
+    public void getTopMovie(Subscriber<List<Movies>> subscriber, int start, int count){
 
 //        movieService.getTopMovie(start, count)
-//                .map(new HttpResultFunc<List<Subject>>())
+//                .map(new HttpResultFunc<List<Movies>>())
 //                .subscribeOn(Schedulers.io())
 //                .unsubscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .subscribe(subscriber);
 
         Observable observable = movieService.getTopMovie(start, count)
-                .map(new HttpResultFunc<List<Subject>>());
+                .map(new HttpResultFunc<List<Movies>>());
 
         toSubscribe(observable, subscriber);
     }

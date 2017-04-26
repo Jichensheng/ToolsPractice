@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by liukun on 16/3/5.
  */
-public class Subject {
+public class Movies {
 
     private String id;
     private String alt;
@@ -19,10 +19,10 @@ public class Subject {
 
     @Override
     public String toString() {
-        return "Subject.id=" + id
-                + " Subject.title=" + title
-                + " Subject.year=" + year
-                + " Subject.originalTitle=" + original_title + casts.toString() + directors.toString() + " | ";
+        return "Movies.id=" + id
+                + " Movies.title=" + title
+                + " Movies.year=" + year
+                + " Movies.originalTitle=" + original_title + casts.toString() + directors.toString() + " | ";
     }
 
     public String getId() {

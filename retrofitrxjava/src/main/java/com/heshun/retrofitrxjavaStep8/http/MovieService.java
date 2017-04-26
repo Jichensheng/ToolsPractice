@@ -1,7 +1,7 @@
 package com.heshun.retrofitrxjavaStep8.http;
 
 import com.heshun.retrofitrxjavaStep8.entity.HttpResult;
-import com.heshun.retrofitrxjavaStep8.entity.Subject;
+import com.heshun.retrofitrxjavaStep8.entity.Movies;
 
 import java.util.List;
 
@@ -21,8 +21,8 @@ public interface MovieService {
 //    Observable<MovieEntity> getTopMovie(@Query("start") int start, @Query("count") int count);
 
 //    @GET("top250")
-//    Observable<HttpResult<List<Subject>>> getTopMovie(@Query("start") int start, @Query("count") int count);
+//    Observable<HttpResult<List<Movies>>> getTopMovie(@Query("start") int start, @Query("count") int count);
 
     @GET("top250")
-    Observable<HttpResult<List<Subject>>> getTopMovie(@Query("start") int start, @Query("count") int count);
+    Observable<HttpResult<List<Movies>>> getTopMovie(@Query("start") int start, @Query("count") int count);
 }

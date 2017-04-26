@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.heshun.retrofitrxjavaStep8.R;
-import com.heshun.retrofitrxjavaStep8.entity.Subject;
+import com.heshun.retrofitrxjavaStep8.entity.Movies;
 import com.heshun.retrofitrxjavaStep8.http.HttpMethods;
 import com.heshun.retrofitrxjavaStep8.subscribers.ProgressSubscriber;
 import com.heshun.retrofitrxjavaStep8.subscribers.SubscriberOnNextListener;
@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        getTopMovieOnNext = new SubscriberOnNextListener<List<Subject>>() {
+        getTopMovieOnNext = new SubscriberOnNextListener<List<Movies>>() {
             @Override
-            public void onNext(List<Subject> subjects) {
-                resultTV.setText(subjects.toString());
+            public void onNext(List<Movies> movies) {
+                resultTV.setText(movies.toString());
             }
         };
     }
