@@ -11,7 +11,7 @@ public class HttpResult<T> {
     private String title;
 
     //用来模仿Data
-    private T movies;
+    private T subjects;
 
 
     public int getCount() {
@@ -47,12 +47,12 @@ public class HttpResult<T> {
     }
 
 
-    public T getMovies() {
-        return movies;
+    public T getSubjects() {
+        return subjects;
     }
 
-    public void setMovies(T movies) {
-        this.movies = movies;
+    public void setSubjects(T subjects) {
+        this.subjects = subjects;
     }
 
 
@@ -60,8 +60,8 @@ public class HttpResult<T> {
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("title=" + title + " count=" + count + " start=" + start);
-        if (null != movies) {
-            sb.append(" movies:" + movies.toString());
+        if (null != subjects) {
+            sb.append(" subjects:" + subjects.toString());
         }
         return sb.toString();
     }

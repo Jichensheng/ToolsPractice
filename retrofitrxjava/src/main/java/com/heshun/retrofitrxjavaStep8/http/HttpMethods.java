@@ -105,7 +105,7 @@ public class HttpMethods {
             if (httpResult.getCount() == 0) {
                 throw new ApiException(100);
             }
-            return httpResult.getMovies();
+            return httpResult.getSubjects();
         }
     }
 
