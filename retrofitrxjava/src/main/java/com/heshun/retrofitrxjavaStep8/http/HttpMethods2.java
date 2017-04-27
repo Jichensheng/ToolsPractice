@@ -1,10 +1,11 @@
 package com.heshun.retrofitrxjavaStep8.http;
 
 
-import com.heshun.retrofitrxjavaStep8.entity.HttpResult;
-import com.heshun.retrofitrxjavaStep8.entity.Movies;
+import com.heshun.retrofitrxjavaStep8.entity.Data;
+import com.heshun.retrofitrxjavaStep8.entity.HeadTest;
+import com.heshun.retrofitrxjavaStep8.entity.HttpResult2;
+import com.heshun.retrofitrxjavaStep8.entity.Pic;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -20,17 +21,17 @@ import rx.schedulers.Schedulers;
 /**
  * Created by liukun on 16/3/9.
  */
-public class HttpMethods {
+public class HttpMethods2 {
 
-    public static final String BASE_URL = "https://api.douban.com/v2/movie/";
+    public static final String BASE_URL = "http://sz.app.jsclp.cn/cpm/api/app/";
 
     private static final int DEFAULT_TIMEOUT = 5;
 
     private Retrofit retrofit;
-    private MovieService movieService;
+    private TestService testService;
 
     //构造方法私有
-    private HttpMethods() {
+    private HttpMethods2() {
         //手动创建一个OkHttpClient并设置超时时间
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
@@ -42,41 +43,25 @@ public class HttpMethods {
                 .baseUrl(BASE_URL)
                 .build();
 
-        movieService = retrofit.create(MovieService.class);
+        testService = retrofit.create(TestService.class);
     }
 
     //在访问HttpMethods时创建单例
     private static class SingletonHolder{
-        private static final HttpMethods INSTANCE = new HttpMethods();
+        private static final HttpMethods2 INSTANCE = new HttpMethods2();
     }
 
     //获取单例
-    public static HttpMethods getInstance(){
+    public static HttpMethods2 getInstance(){
         return SingletonHolder.INSTANCE;
     }
 
-    /**
-     * 用于获取豆瓣电影Top250的数据
-     * @param subscriber  由调用者传过来的观察者对象
-     * @param start 起始位置
-     * @param count 获取长度
-     */
-    public void getTopMovie(Subscriber<List<Movies>> subscriber, int start, int count){
+    public void getPic(Subscriber<Pic> subscriber, int pageSize, int page, int orgId){
 
-/*
-        movieService.getTopMovie(start, count)
-                .map(new HttpResultFunc<List<Movies>>())
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
-*/
-        //Todo 包一层HttpResult目的？ http://gank.io/post/56e80c2c677659311bed9841 2.相同格式的Http请求数据该如何封装
-        Observable observable = movieService.getTopMovie(start, count)// Server的getTopMovie返回类型为Observable<HttpResult<List<Movies>>>
-                .map(new HttpResultFunc<List<Movies>>());//map通过Func1将HttpResult<List<Movies>>的发射流转换成List<Movies>流
+        Observable observable1=testService.getPic(pageSize,page,orgId).map(new HttpResultFunc2<HeadTest,Pic>());
 
         //将被观察者与观察者关联，此处的观察者是重点
-        toSubscribe(observable, subscriber);
+        toSubscribe(observable1, subscriber);
     }
 
     /**
@@ -98,15 +83,22 @@ public class HttpMethods {
      * RxJava的map函数只有一个参数，参数一般是Func1，Func1的<I,O>I,O模版分别为输入和输出值的类型，实现Func1的call方法对I类型进行处理后返回O类型数据
      * @param <T>   Subscriber真正需要的数据类型即json的Data部分，此案例T为List<Movies>
      */
-    private class HttpResultFunc<T> implements Func1<HttpResult<T>, T>{
-
+    private class HttpResultFunc2<E,T> implements Func1<HttpResult2<E,T>, Data<E,T>>{
         @Override
-        public T call(HttpResult<T> httpResult) {
-            if (httpResult.getCount() == 0) {
-                throw new ApiException(100);
+        public Data<E,T> call(HttpResult2<E, T> etHttpResult2) {
+            if (!etHttpResult2.isSucc()) {
+                throw new ApiException2(etHttpResult2.getStatusCode());
             }
-            return httpResult.getSubjects();
+            return etHttpResult2.getData();
         }
+
+       /* @Override
+        public T call(HttpResult2<T> httpResult) {
+            if (!httpResult.isSucc()) {
+                throw new ApiException2(httpResult.getStatusCode());
+            }
+            return httpResult.getData();
+        }*/
     }
 
 }

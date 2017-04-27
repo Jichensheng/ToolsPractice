@@ -6,12 +6,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.heshun.retrofitrxjavaStep8.R;
-import com.heshun.retrofitrxjavaStep8.entity.Movies;
-import com.heshun.retrofitrxjavaStep8.http.HttpMethods;
+import com.heshun.retrofitrxjavaStep8.http.HttpMethods2;
 import com.heshun.retrofitrxjavaStep8.subscribers.CommonSubscriber;
 import com.heshun.retrofitrxjavaStep8.subscribers.SubscriberOnNextListener;
-
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.result_TV)
     TextView resultTV;
 
-    private SubscriberOnNextListener getTopMovieOnNext;
+    private SubscriberOnNextListener getTopMovieOnNext,testOnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +29,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        getTopMovieOnNext = new SubscriberOnNextListener<List<Movies>>() {
+        /*getTopMovieOnNext = new SubscriberOnNextListener<List<Movies>>() {
             @Override
             public void onNext(List<Movies> movies) {
                 resultTV.setText(movies.toString());
+            }
+        };*/
+        testOnNext=new SubscriberOnNextListener<String>() {
+            @Override
+            public void onNext(String s) {
+                resultTV.setText(s);
             }
         };
     }
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     //进行网络请求
     private void getMovie(){
-        HttpMethods.getInstance().getTopMovie(new CommonSubscriber(getTopMovieOnNext, MainActivity.this), 0, 10);
+//        HttpMethods.getInstance().getTopMovie(new CommonSubscriber(getTopMovieOnNext, MainActivity.this), 0, 10);
+        HttpMethods2.getInstance().getPic(new CommonSubscriber(testOnNext,MainActivity.this),5,1,1);
     }
 }

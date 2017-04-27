@@ -14,15 +14,7 @@ import rx.Observable;
  */
 public interface MovieService {
 
-//    @GET("top250")
-//    Call<MovieEntity> getTopMovie(@Query("start") int start, @Query("count") int count);
-
-//    @GET("top250")
-//    Observable<MovieEntity> getTopMovie(@Query("start") int start, @Query("count") int count);
-
-//    @GET("top250")
-//    Observable<HttpResult<List<Movies>>> getTopMovie(@Query("start") int start, @Query("count") int count);
-
     @GET("top250")//Observable<T> 其中T为RxJava原始的发射数据流，后续根据需求可以通过RxJava的map转换
     Observable<HttpResult<List<Movies>>> getTopMovie(@Query("start") int start, @Query("count") int count);
+
 }
