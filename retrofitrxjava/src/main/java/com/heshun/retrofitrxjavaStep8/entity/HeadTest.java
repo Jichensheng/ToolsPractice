@@ -21,4 +21,11 @@ public class HeadTest {
 		return this.newsType;
 	}
 
+	@Override
+	public String toString() {
+		return "HeadTest{" +
+				"totalPage=" + totalPage +
+				", newsType=" + newsType +
+				'}';
+	}
 }
