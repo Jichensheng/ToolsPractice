@@ -3,14 +3,14 @@ package com.heshun.retrofitrxjava.entity.stable;
 /**
  *  "data": {
 		 "head": { },
- 		"body": [ ]
+ 		"body": [{},{},{} ]
  	}
  * @param <T> head泛型
  * @param <E> body泛型
  */
 public class Data<T, E> {
 	private T head;
-	private E body;
+	private E body;//body字段多数情况是某种entity 的集合
 
 	public void setHead(T head) {
 		this.head = head;

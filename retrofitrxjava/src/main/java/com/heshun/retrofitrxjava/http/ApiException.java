@@ -2,14 +2,14 @@ package com.heshun.retrofitrxjava.http;
 
 /**
  *Json模板
- {
- "succ": true,
- "statusCode": 200,
- "msg": "消息",
- "data": {
- },
- "time": 1476842649455
- }
+     {
+         "succ": true,
+         "statusCode": 200,
+         "msg": "消息",
+         "data": {
+         },
+         "time": 1476842649455
+     }
 
  错误码	原因
  400	服务器出了点小问题,请稍后重试
@@ -28,6 +28,10 @@ public class ApiException extends RuntimeException {
     public static final int ERROR_FILE_EXSIT=1003;
     public static final int ERROR_FILE_HASDELET=2001;
 
+    /**
+     * 构造函数
+     * @param resultCode
+	 */
     public ApiException(int resultCode) {
         this(getApiExceptionMessage(resultCode));
     }

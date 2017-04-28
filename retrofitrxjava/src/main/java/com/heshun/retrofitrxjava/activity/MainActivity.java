@@ -7,8 +7,8 @@ import android.widget.TextView;
 
 import com.heshun.retrofitrxjava.R;
 import com.heshun.retrofitrxjava.entity.HeadDefault;
+import com.heshun.retrofitrxjava.entity.Order;
 import com.heshun.retrofitrxjava.entity.stable.Data;
-import com.heshun.retrofitrxjava.entity.Pic;
 import com.heshun.retrofitrxjava.http.HttpMethods;
 import com.heshun.retrofitrxjava.subscribers.ProgressSubscriber;
 import com.heshun.retrofitrxjava.subscribers.SubscriberOnNextListener;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.result_TV)
     TextView resultTV;
 
-    private SubscriberOnNextListener getTopMovieOnNext,testOnNext;
+    private SubscriberOnNextListener<Data<HeadDefault, List<Order>>> testOnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        testOnNext=new SubscriberOnNextListener<Data<HeadDefault,List<Pic>>>() {
+        //此处给Data<T,E>赋类型
+        testOnNext=new SubscriberOnNextListener<Data<HeadDefault,List<Order>>>() {
             @Override
-            public void onNext(Data<HeadDefault, List<Pic>> data) {
-                List<Pic> list=data.getBody();
+            public void onNext(Data<HeadDefault, List<Order>> data) {
+                List<Order> list=data.getBody();
                 String s=data.getHead().toString()+"\n\n";
-                for (Pic pic : list) {
-                    s+=pic.toString()+"\n\n";
+                for (Order order : list) {
+                    s+=order.toString()+"\n\n";
                 }
                 resultTV.setText(s);
             }
@@ -64,11 +65,12 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.click_me_BN)
     public void onClick() {
-        getMovie();
+        getPic();
     }
 
     //进行网络请求
-    private void getMovie(){
-        HttpMethods.getInstance().getPic(new ProgressSubscriber(testOnNext,MainActivity.this),5,1,1);
+    private void getPic(){
+//        HttpMethods.getInstance().getPic(new ProgressSubscriber(testOnNext,MainActivity.this),5,1,1);
+        HttpMethods.getInstance().getOrderList(new ProgressSubscriber(testOnNext,MainActivity.this),"NzY2MTUxZmI2YTE5NGEwYzhlODdmM2RiYmI5ZTY5ODA=",1,10,1);
     }
 }

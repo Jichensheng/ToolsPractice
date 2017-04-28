@@ -1,18 +1,21 @@
 package com.heshun.retrofitrxjava.entity.stable;
 
 /**
- *Json模板
+    Json模板
 	 {
 	 "succ": true,
 	 "statusCode": 200,
 	 "msg": "消息",
 	 "data": {
+         "head": { },
+         "body": [ ]
 	 },
 	 "time": 1476842649455
 	 }
- * @param <T> 可以是Data类
+ * head和body字段数据类型不固定，所以采用泛型
+ * @param <T> head
+ * @param <E> body 多数情况下是entity的集合
  */
-
 public class HttpResult<T,E> {
 
     private boolean succ;
@@ -20,7 +23,7 @@ public class HttpResult<T,E> {
     private String msg;
     private Long time;
 
-    private Data<T, E> data;//包含head和body的data字段
+    private Data<T, E> data;
 
     public boolean isSucc() {
         return succ;
