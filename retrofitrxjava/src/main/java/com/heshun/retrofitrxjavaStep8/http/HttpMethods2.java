@@ -6,6 +6,7 @@ import com.heshun.retrofitrxjavaStep8.entity.HeadTest;
 import com.heshun.retrofitrxjavaStep8.entity.HttpResult2;
 import com.heshun.retrofitrxjavaStep8.entity.Pic;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -58,7 +59,7 @@ public class HttpMethods2 {
 
     public void getPic(Subscriber<Pic> subscriber, int pageSize, int page, int orgId){
 
-        Observable observable1=testService.getPic(pageSize,page,orgId).map(new HttpResultFunc2<HeadTest,Pic>());
+        Observable observable1=testService.getPic(pageSize,page,orgId).map(new HttpResultFunc2<HeadTest,List<Pic>>());
 
         //将被观察者与观察者关联，此处的观察者是重点
         toSubscribe(observable1, subscriber);

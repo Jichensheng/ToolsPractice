@@ -94,5 +94,20 @@ public class Pic {
 	public int getNewsType() {
 		return this.newsType;
 	}
+
+	@Override
+	public String toString() {
+		return "Pic{" +
+				"orgId=" + orgId +
+				", thumImage='" + thumImage + '\'' +
+				", indexImage='" + indexImage + '\'' +
+				", title='" + title + '\'' +
+				", content='" + content + '\'' +
+				", clickCount=" + clickCount +
+				", isindex=" + isindex +
+				", link='" + link + '\'' +
+				", newsType=" + newsType +
+				'}';
+	}
 }
 

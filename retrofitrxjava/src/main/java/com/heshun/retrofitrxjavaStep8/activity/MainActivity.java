@@ -6,9 +6,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.heshun.retrofitrxjavaStep8.R;
+import com.heshun.retrofitrxjavaStep8.entity.Data;
+import com.heshun.retrofitrxjavaStep8.entity.HeadTest;
+import com.heshun.retrofitrxjavaStep8.entity.Pic;
 import com.heshun.retrofitrxjavaStep8.http.HttpMethods2;
 import com.heshun.retrofitrxjavaStep8.subscribers.CommonSubscriber;
 import com.heshun.retrofitrxjavaStep8.subscribers.SubscriberOnNextListener;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,11 +40,20 @@ public class MainActivity extends AppCompatActivity {
                 resultTV.setText(movies.toString());
             }
         };*/
-        testOnNext=new SubscriberOnNextListener<String>() {
+        testOnNext=new SubscriberOnNextListener<Data<HeadTest,List<Pic>>>() {
             @Override
-            public void onNext(String s) {
+            public void onNext(Data<HeadTest, List<Pic>> headTestPicData) {
+                List<Pic> list=headTestPicData.getBody();
+                String s=headTestPicData.getHead().toString()+"\n\n";
+                for (Pic pic : list) {
+                    s+=pic.toString()+"\n\n";
+                }
                 resultTV.setText(s);
             }
+          /*  @Override
+            public void onNext(String s) {
+                resultTV.setText(s);
+            }*/
         };
     }
 

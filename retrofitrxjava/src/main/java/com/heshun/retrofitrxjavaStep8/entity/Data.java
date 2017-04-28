@@ -10,7 +10,6 @@ package com.heshun.retrofitrxjavaStep8.entity;
  */
 public class Data<T, E> {
 	private T head;
-
 	private E body;
 
 	public void setHead(T head) {
