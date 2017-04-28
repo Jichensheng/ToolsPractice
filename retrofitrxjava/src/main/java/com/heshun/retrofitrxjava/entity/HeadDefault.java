@@ -1,6 +1,6 @@
-package com.heshun.retrofitrxjavaStep8.entity;
+package com.heshun.retrofitrxjava.entity;
 
-public class HeadTest {
+public class HeadDefault {
 	private int totalPage;
 
 	private int newsType;
@@ -23,7 +23,7 @@ public class HeadTest {
 
 	@Override
 	public String toString() {
-		return "HeadTest{" +
+		return "HeadDefault{" +
 				"totalPage=" + totalPage +
 				", newsType=" + newsType +
 				'}';

@@ -1,7 +1,10 @@
-package com.heshun.retrofitrxjavaStep8.subscribers;
+package com.heshun.retrofitrxjava.subscribers;
 
 import android.content.Context;
 import android.widget.Toast;
+
+import com.heshun.retrofitrxjava.progress.ProgressCancelListener;
+import com.heshun.retrofitrxjava.progress.ProgressDialogHandler;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -14,17 +17,31 @@ import rx.Subscriber;
  * 调用者自己对请求数据进行处理
  * Created by liukun on 16/3/10.
  */
-public class CommonSubscriber<T> extends Subscriber<T>{
+public class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCancelListener{
 
     private SubscriberOnNextListener mSubscriberOnNextListener;
+    private ProgressDialogHandler mProgressDialogHandler;
 
     private Context context;
 
-    public CommonSubscriber(SubscriberOnNextListener mSubscriberOnNextListener, Context context) {
+    public ProgressSubscriber(SubscriberOnNextListener mSubscriberOnNextListener, Context context) {
         this.mSubscriberOnNextListener = mSubscriberOnNextListener;
         this.context = context;
+        mProgressDialogHandler = new ProgressDialogHandler(context, this, true);
     }
 
+    private void showProgressDialog(){
+        if (mProgressDialogHandler != null) {
+            mProgressDialogHandler.obtainMessage(ProgressDialogHandler.SHOW_PROGRESS_DIALOG).sendToTarget();
+        }
+    }
+
+    private void dismissProgressDialog(){
+        if (mProgressDialogHandler != null) {
+            mProgressDialogHandler.obtainMessage(ProgressDialogHandler.DISMISS_PROGRESS_DIALOG).sendToTarget();
+            mProgressDialogHandler = null;
+        }
+    }
 
     /**
      * 订阅开始时调用
@@ -32,6 +49,7 @@ public class CommonSubscriber<T> extends Subscriber<T>{
      */
     @Override
     public void onStart() {
+        showProgressDialog();
     }
 
     /**
@@ -39,6 +57,7 @@ public class CommonSubscriber<T> extends Subscriber<T>{
      */
     @Override
     public void onCompleted() {
+        dismissProgressDialog();
         Toast.makeText(context, "Get Top Movie Completed", Toast.LENGTH_SHORT).show();
     }
 
@@ -56,6 +75,7 @@ public class CommonSubscriber<T> extends Subscriber<T>{
         } else {
             Toast.makeText(context, "error:" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+        dismissProgressDialog();
 
     }
 
@@ -71,4 +91,13 @@ public class CommonSubscriber<T> extends Subscriber<T>{
         }
     }
 
+    /**
+     * 取消ProgressDialog的时候，取消对observable的订阅，同时也取消了http请求
+     */
+    @Override
+    public void onCancelProgress() {
+        if (!this.isUnsubscribed()) {
+            this.unsubscribe();
+        }
+    }
 }

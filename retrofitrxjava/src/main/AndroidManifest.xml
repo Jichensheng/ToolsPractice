@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.heshun.retrofitrxjavaStep8">
+          package="com.heshun.retrofitrxjava">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 网络状态权限 -->
@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.heshun.retrofitrxjavaStep8.activity.MainActivity">
+        <activity android:name="com.heshun.retrofitrxjava.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

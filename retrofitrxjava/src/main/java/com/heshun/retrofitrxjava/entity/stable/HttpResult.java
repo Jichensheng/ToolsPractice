@@ -1,4 +1,4 @@
-package com.heshun.retrofitrxjavaStep8.entity;
+package com.heshun.retrofitrxjava.entity.stable;
 
 /**
  *Json模板
@@ -13,7 +13,7 @@ package com.heshun.retrofitrxjavaStep8.entity;
  * @param <T> 可以是Data类
  */
 
-public class HttpResult2<T,E> {
+public class HttpResult<T,E> {
 
     private boolean succ;
     private int statusCode;
@@ -64,7 +64,7 @@ public class HttpResult2<T,E> {
 
     @Override
     public String toString() {
-        return "HttpResult2{" +
+        return "HttpResult{" +
                 "time=" + time +
                 ", msg='" + msg + '\'' +
                 ", statusCode=" + statusCode +

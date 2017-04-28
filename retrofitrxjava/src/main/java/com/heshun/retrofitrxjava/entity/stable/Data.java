@@ -1,4 +1,4 @@
-package com.heshun.retrofitrxjavaStep8.entity;
+package com.heshun.retrofitrxjava.entity.stable;
 
 /**
  *  "data": {

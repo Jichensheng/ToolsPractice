@@ -1,4 +1,4 @@
-package com.heshun.retrofitrxjavaStep8.subscribers;
+package com.heshun.retrofitrxjava.subscribers;
 
 /**
  * Created by liukun on 16/3/10.

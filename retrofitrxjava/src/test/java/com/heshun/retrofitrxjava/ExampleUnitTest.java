@@ -1,4 +1,4 @@
-package com.heshun.retrofitrxjavaStep8;
+package com.heshun.retrofitrxjava;
 
 import org.junit.Test;
 

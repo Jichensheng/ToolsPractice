@@ -1,4 +1,4 @@
-package com.heshun.retrofitrxjavaStep8.http;
+package com.heshun.retrofitrxjava.http;
 
 /**
  *Json模板
@@ -19,7 +19,7 @@ package com.heshun.retrofitrxjavaStep8.http;
  1003	上传的文件已存在
  2001	所访问的资源已经被删除
  */
-public class ApiException2 extends RuntimeException {
+public class ApiException extends RuntimeException {
 
     public static final int ERROR_SERVER=400;
     public static final int ERROR_PARAM=402;
@@ -28,11 +28,11 @@ public class ApiException2 extends RuntimeException {
     public static final int ERROR_FILE_EXSIT=1003;
     public static final int ERROR_FILE_HASDELET=2001;
 
-    public ApiException2(int resultCode) {
+    public ApiException(int resultCode) {
         this(getApiExceptionMessage(resultCode));
     }
 
-    public ApiException2(String detailMessage) {
+    public ApiException(String detailMessage) {
         super(detailMessage);
     }
 

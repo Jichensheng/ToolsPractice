@@ -1,4 +1,4 @@
-package com.heshun.retrofitrxjavaStep8.progress;
+package com.heshun.retrofitrxjava.progress;
 
 /**
  * Created by liukun on 16/3/10.
