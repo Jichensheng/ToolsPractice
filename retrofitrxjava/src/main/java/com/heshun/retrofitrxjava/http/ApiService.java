@@ -13,7 +13,7 @@ import rx.Observable;
 /**
  * Created by liukun on 16/3/9.
  */
-public interface TestService {
+public interface ApiService {
 
     @GET("news/appNewsList/{pageSize}/{page}/{orgId}")
     //Observable<T>的泛型即为被观察者原始的发射数据类型

@@ -29,7 +29,7 @@ public class HttpMethods {
     private static final int DEFAULT_TIMEOUT = 5;
 
     private Retrofit retrofit;
-    private TestService testService;
+    private ApiService apiService;
 
     //构造方法私有
     private HttpMethods() {
@@ -44,7 +44,7 @@ public class HttpMethods {
                 .baseUrl(BASE_URL)
                 .build();
 
-        testService = retrofit.create(TestService.class);
+        apiService = retrofit.create(ApiService.class);
     }
 
     //在访问HttpMethods时创建单例
@@ -61,7 +61,7 @@ public class HttpMethods {
         //getPic之后发射的数据类型是Interface定义的HttpResult2<HeadDefault,List<Pic>>
         //map处理之后的类型是Data<HeadDefault,List<Pic>>
         //观察者Subscriber的onNext(T t)中接收的类型就是被观察者最后发射的Data<HeadDefault,List<Pic>>,然后再做处理
-        Observable observable1=testService.getPic(pageSize,page,orgId).map(new HttpResultFunc2<HeadDefault,List<Pic>>());
+        Observable observable1= apiService.getPic(pageSize,page,orgId).map(new HttpResultFunc2<HeadDefault,List<Pic>>());
 
         //将被观察者与观察者关联，此处的观察者是重点
         toSubscribe(observable1, subscriber);
