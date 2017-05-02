@@ -39,7 +39,7 @@ public class CommonSubscriber<T> extends Subscriber<T>{
      */
     @Override
     public void onCompleted() {
-        Toast.makeText(context, "Get Top Movie Completed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Completed", Toast.LENGTH_SHORT).show();
     }
 
     /**

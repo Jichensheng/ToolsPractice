@@ -1,4 +1,4 @@
-package com.heshun.retrofitrxjava.entity;
+package com.heshun.retrofitrxjava.entity.pojo;
 
 /**
  * author：Jics
