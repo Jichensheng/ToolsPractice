@@ -161,42 +161,4 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
-    //进行网络请求
-    private void getPic(){
-//        HttpMethods.getInstance().getPic(new ProgressSubscriber(testOnNext,MainActivity.this),5,1,1);
-
-        HttpMethods.getInstance().getOrderList(new ProgressSubscriber(testOnNext,MainActivity.this),"NmIzOGJlZWIzMTlmNGQ4ZmI4YzE1ODZlZDc0OWM2YWY=",1,10,1);
-
-        //120.674771/31.355091/50/10/1?city=苏州市
-        HttpMethods.getInstance().getPileStation(new ProgressSubscriber(new SubscriberOnNextListener<Data<HeadDefault,List<PileStation>>>() {
-            @Override
-            public void onNext(Data<HeadDefault, List<PileStation>> data) {
-                if (data.getBody() != null) {
-                    List<PileStation> list=data.getBody();
-                    String s=data.getHead().toString()+"\n\n";
-                    for (PileStation pileStation : list) {
-                        s+=pileStation.toString()+"\n\n";
-                    }
-                    resultTV.setText(s);
-                }else
-                    resultTV.setText("暂无数据");
-            }
-        },MainActivity.this),120.674771,31.355091,50,10,1,"苏州市");
-
-      /*  HttpMethods.getInstance().getMoney(new CommonSubscriber(new SubscriberOnNextListener<Data<HeadDefault,CommonUser>>() {
-
-            @Override
-            public void onNext(Data<HeadDefault, CommonUser> headDefaultCommonUserData) {
-                resultTV.setText(headDefaultCommonUserData.getBody().toString());
-            }
-        }, MainActivity.this));*/
-
-/*        HttpMethods.getInstance().checkUpdata(new CommonSubscriber(new SubscriberOnNextListener<Data<HeadDefault,UpdataVersion>>() {
-            @Override
-            public void onNext(Data<HeadDefault, UpdataVersion> headDefaultUpdataVersionData) {
-                resultTV.setText(headDefaultUpdataVersionData.getBody().toString());
-            }
-        }, MainActivity.this),6);*/
-    }
 }

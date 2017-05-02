@@ -6,7 +6,7 @@ package com.heshun.retrofitrxjava.entity.stable;
  * @param <E>
  */
 public class DefaultResult<E, T> extends Data<E,T>{
-	HttpResult<E, T> etHttpResult;
+	private HttpResult<E, T> etHttpResult;
 
 	public HttpResult<E, T> getEtHttpResult() {
 		return etHttpResult;
