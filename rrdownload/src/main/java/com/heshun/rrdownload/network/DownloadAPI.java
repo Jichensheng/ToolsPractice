@@ -64,8 +64,9 @@ public class DownloadAPI {
                         return responseBody.byteStream();
                     }
                 })
-                .observeOn(Schedulers.computation())
-                .doOnNext(new Action1<InputStream>() {
+                //observeOn作用于该操作符之后操作符直到出现新的observeOn操作符
+                .observeOn(Schedulers.computation())//CPU 密集型计算，不会被 I/O 等操作限制性能的操作
+                .doOnNext(new Action1<InputStream>() {//输出元素前的操作，可以去保存/缓存网络结果
                     @Override
                     public void call(InputStream inputStream) {
                         try {

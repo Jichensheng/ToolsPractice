@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             if (intent.getAction().equals(MESSAGE_PROGRESS)) {
 
                 Download download = intent.getParcelableExtra("download");
+                Log.e("---------------", "onReceive: " );
                 progress.setProgress(download.getProgress());
                 if (download.getProgress() == 100) {
 
