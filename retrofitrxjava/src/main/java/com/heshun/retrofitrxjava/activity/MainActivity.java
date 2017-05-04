@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     TextView resultTV;
 
     private SubscriberOnNextListener<Data<HeadDefault, List<Order>>> testOnNext;
-    private SubscriberOnNextListener<Data<HeadDefault, List<PileStation>>> pileOnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,21 +70,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-        //桩回调
-        pileOnNext=new SubscriberOnNextListener<Data<HeadDefault,List<PileStation>>>() {
-            @Override
-            public void onNext(Data<HeadDefault, List<PileStation>> data) {
-                if (data.getBody() != null) {
-                    List<PileStation> list=data.getBody();
-                    String s=data.getHead().toString()+"\n\n";
-                    for (PileStation pileStation : list) {
-                        s+=pileStation.toString()+"\n\n";
-                    }
-                    resultTV.setText(s);
-                }else
-                    resultTV.setText("暂无数据");
-            }
-        };
     }
 
     @Override
@@ -102,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void click(View view) {
         switch (view.getId()){
+
             case R.id.btn_1:
                 HttpMethods.getInstance().getPic(new ProgressSubscriber(new SubscriberOnNextListener<Data<HeadDefault,List<Pic>>>() {
                     @Override
@@ -122,9 +107,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 },MainActivity.this),5,1,1);
                 break;
+
+
             case R.id.btn_2:
                 HttpMethods.getInstance().getOrderList(new ProgressSubscriber(testOnNext,MainActivity.this),"NmIzOGJlZWIzMTlmNGQ4ZmI4YzE1ODZlZDc0OWM2YWY=",1,10,1);
                 break;
+
+
             case R.id.btn_3:
                 //120.674771/31.355091/50/10/1?city=苏州市
                 HttpMethods.getInstance().getPileStation(new ProgressSubscriber(new SubscriberOnNextListener<Data<HeadDefault,List<PileStation>>>() {
@@ -142,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 },MainActivity.this),120.674771,31.355091,50,10,1,"苏州市");
                 break;
+
+
             case R.id.btn_4:
                 HttpMethods.getInstance().getMoney(new CommonSubscriber(new SubscriberOnNextListener<Data<HeadDefault,CommonUser>>() {
 
@@ -151,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }, MainActivity.this));
                 break;
+
+
             case R.id.btn_5:
                 HttpMethods.getInstance().checkUpdata(new CommonSubscriber(new SubscriberOnNextListener<Data<HeadDefault,UpdataVersion>>() {
                     @Override

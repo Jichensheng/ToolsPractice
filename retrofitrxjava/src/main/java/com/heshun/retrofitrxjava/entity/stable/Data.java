@@ -19,7 +19,6 @@ public class Data<T, E> {
 	public T getHead() {
 		return this.head;
 	}
-
 	public void setBody(E body) {
 		this.body = body;
 	}
