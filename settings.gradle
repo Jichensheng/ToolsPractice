@@ -1,1 +1,1 @@
-include ':sharepractice', ':bvpager', ':retrofitdemo', ':crash', ':jpush', ':retrofitrxjava'
+include ':sharepractice', ':bvpager', ':retrofitdemo', ':crash', ':jpush', ':retrofitrxjava', ':rrdownload'

@@ -29,6 +29,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
+ * 用户和api接口的桥接
  * author：Jics
  * 2017/4/27 13:49
  */
@@ -67,6 +68,13 @@ public class HttpMethods {
 		return SingletonHolder.INSTANCE;
 	}
 
+	/**
+	 * 获取新闻图片
+	 * @param subscriber
+	 * @param pageSize
+	 * @param page
+	 * @param orgId
+	 */
 	public void getPic(Subscriber subscriber, int pageSize, int page, int orgId) {
 		//getPic之后发射的数据类型是Interface定义的HttpResult2<HeadDefault,List<Pic>>
 		//map处理之后的类型是Data<HeadDefault,List<Pic>>
@@ -76,6 +84,14 @@ public class HttpMethods {
 		toSubscribe(observable1, subscriber);
 	}
 
+	/**
+	 * 获取订单列表
+	 * @param subscriber
+	 * @param token
+	 * @param status
+	 * @param pageSize
+	 * @param page
+	 */
 	public void getOrderList(Subscriber subscriber, String token, int status, int pageSize, int page) {
 		Observable observable1 = apiService.getOrderList(token, status, pageSize, page).map(new HttpResultFunc<HeadDefault, List<Order>>());
 
@@ -83,6 +99,16 @@ public class HttpMethods {
 		toSubscribe(observable1, subscriber);
 	}
 
+	/**
+	 * 根据地点获取附近充电桩
+	 * @param subscriber
+	 * @param lon
+	 * @param lat
+	 * @param orgId
+	 * @param pageSize
+	 * @param page
+	 * @param city
+	 */
 	public void getPileStation(Subscriber subscriber, double lon, double lat,
 							   int orgId, int pageSize, int page, String city) {
 		Observable observable1 = apiService.getPileStation(lon, lat, orgId, pageSize, page, city).map(new HttpResultFunc<HeadDefault, List<PileStation>>());
@@ -91,9 +117,14 @@ public class HttpMethods {
 		toSubscribe(observable1, subscriber);
 	}
 
-	public void getMoney(Subscriber subscriber) {
+	/**
+	 * 获取用户的余额
+	 * @param subscriber
+	 * @param token
+	 */
+	public void getMoney(Subscriber subscriber,String token) {
 		Map<String, String> map = new HashMap<>();
-		map.put("token", "NmIzOGJlZWIzMTlmNGQ4ZmI4YzE1ODZlZDc0OWM2YWY=");
+		map.put("token",token);
 		JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(map));
 		Observable observable1 = apiService.getMoney(jsonObject).map(new HttpResultFunc<HeadDefault, CommonUser>());
 
@@ -101,6 +132,11 @@ public class HttpMethods {
 		toSubscribe(observable1, subscriber);
 	}
 
+	/**
+	 * 检测更新
+	 * @param subscriber
+	 * @param versionNo
+	 */
 	public void checkUpdata(Subscriber subscriber, int versionNo) {
 		JSONObject jsonObject = JSON.parseObject("{\"versionNo\":" + versionNo + "}");
 		Observable observable = apiService.checkUpdata(jsonObject).map(new HttpResultFunc<HeadDefault, UpdataVersion>());
