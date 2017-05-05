@@ -47,6 +47,7 @@ public class HttpMethods {
 		//手动创建一个OkHttpClient并设置超时时间
 		OkHttpClient.Builder builder = new OkHttpClient.Builder();
 		builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+		builder.addInterceptor(new LoggingInterceptor());
 
 		retrofit = new Retrofit.Builder()
 				.client(builder.build())

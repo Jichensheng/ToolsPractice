@@ -27,118 +27,122 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
  * Created by Jcs on 16/7/5.
  */
 public class DownloadService extends IntentService {
-    private static final String TAG = "DownloadService";
+	private static final String TAG = "DownloadService";
 
-    private NotificationCompat.Builder notificationBuilder;
-    private NotificationManager notificationManager;
+	private NotificationCompat.Builder notificationBuilder;
+	private NotificationManager notificationManager;
 
-    int downloadCount = 0;
+	int downloadCount = 0;
 
-    private String apkUrl = "http://download.fir.im/v2/app/install/5818acbcca87a836f50014af?download_token=a01301d7f6f8f4957643c3fcfe5ba6ff";
+	private String apkUrl = "http://download.fir.im/v2/app/install/5818acbcca87a836f50014af?download_token=a01301d7f6f8f4957643c3fcfe5ba6ff";
 
-    public DownloadService() {
-        super("DownloadService");
-    }
+	public DownloadService() {
+		super("DownloadService");
+	}
 
-    private File outputFile;
+	private File outputFile;
 
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+	@Override
+	protected void onHandleIntent(Intent intent) {
+		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_download)
-                .setContentTitle("Download")
-                .setContentText("Downloading File")
-                .setAutoCancel(true);
+		notificationBuilder = new NotificationCompat.Builder(this)
+				.setSmallIcon(R.mipmap.ic_download)
+				.setContentTitle("Download")
+				.setContentText("Downloading File")
+				.setAutoCancel(true);
 
-        notificationManager.notify(0, notificationBuilder.build());
+		notificationManager.notify(0, notificationBuilder.build());
 
-        download();
-    }
+		download();
+	}
 
-    private void download() {
-        DownloadProgressListener listener = new DownloadProgressListener() {
-            @Override
-            public void update(long bytesRead, long contentLength, boolean done) {
-                //不频繁发送通知，防止通知栏下拉卡顿
-                int progress = (int) ((bytesRead * 100) / contentLength);
-                if ((downloadCount == 0) || progress > downloadCount) {
-                    Download download = new Download();
-                    download.setTotalFileSize(contentLength);
-                    download.setCurrentFileSize(bytesRead);
-                    download.setProgress(progress);
+	private void download() {
+		DownloadProgressListener listener = new DownloadProgressListener() {
+			@Override
+			public void update(long bytesRead, long contentLength, boolean done) {
+				//不频繁发送通知，防止通知栏下拉卡顿
+				int progress = (int) ((bytesRead * 100) / contentLength);
+				if ((downloadCount == 0) || progress > downloadCount) {
+					Download download = new Download();
+					download.setTotalFileSize(contentLength);
+					download.setCurrentFileSize(bytesRead);
+					download.setProgress(progress);
 
-                    sendNotification(download);
-                }
-            }
-        };
-        outputFile = new File(Environment.getExternalStoragePublicDirectory
-                (Environment.DIRECTORY_DOWNLOADS), "file.apk");
+					sendNotification(download);
+				}
+			}
+		};
+		outputFile = new File(Environment.getExternalStoragePublicDirectory
+				(Environment.DIRECTORY_DOWNLOADS), "file.apk");
 
-        if (outputFile.exists()) {
-            outputFile.delete();
-        }
+		if (outputFile.exists()) {
+			outputFile.delete();
+		}
 
 
-        String baseUrl = StringUtils.getHostName(apkUrl);
+		String baseUrl = StringUtils.getHostName(apkUrl);
 
-        new DownloadAPI(baseUrl, listener).downloadAPK(apkUrl, outputFile, new Subscriber() {
-            @Override
-            public void onCompleted() {
-                downloadCompleted();
-            }
+		new DownloadAPI(baseUrl, listener).downloadAPK(apkUrl, outputFile, new Subscriber() {
+			@Override
+			public void onCompleted() {
+				downloadCompleted(true);
+			}
 
-            @Override
-            public void onError(Throwable e) {
-                e.printStackTrace();
-                downloadCompleted();
-                Log.e(TAG, "onError: " + e.getMessage());
-            }
+			@Override
+			public void onError(Throwable e) {
+				e.printStackTrace();
+				downloadCompleted(false);
+				Log.e(TAG, "onError: " + e.getMessage());
+			}
 
-            @Override
-            public void onNext(Object o) {
+			@Override
+			public void onNext(Object o) {
 
-            }
-        });
-    }
+			}
+		});
+	}
 
-    private void downloadCompleted() {
-        Download download = new Download();
-        download.setProgress(100);
-        sendIntent(download);
+	private void downloadCompleted(boolean isSucc) {
+		if (isSucc) {
+			Download download = new Download();
+			download.setProgress(100);
+			sendIntent(download);
 
-        notificationManager.cancel(0);
-        notificationBuilder.setProgress(0, 0, false);
-        notificationBuilder.setContentText("File Downloaded");
-        notificationManager.notify(0, notificationBuilder.build());
+			notificationManager.cancel(0);
+			notificationBuilder.setProgress(0, 0, false);
+			notificationBuilder.setContentText("File Downloaded");
+			notificationManager.notify(0, notificationBuilder.build());
 
-        //安装apk
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        intent.setDataAndType(Uri.fromFile(outputFile), "application/vnd.android.package-archive");
-        startActivity(intent);
-    }
 
-    private void sendNotification(Download download) {
+			//安装apk
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+			intent.setDataAndType(Uri.fromFile(outputFile), "application/vnd.android.package-archive");
+			startActivity(intent);
+		}
 
-        sendIntent(download);
-        notificationBuilder.setProgress(100, download.getProgress(), false);
-        notificationBuilder.setContentText(
-                StringUtils.getDataSize(download.getCurrentFileSize()) + "/" +
-                        StringUtils.getDataSize(download.getTotalFileSize()));
-        notificationManager.notify(0, notificationBuilder.build());
-    }
+	}
 
-    private void sendIntent(Download download) {
+	private void sendNotification(Download download) {
 
-        Intent intent = new Intent(MainActivity.MESSAGE_PROGRESS);
-        intent.putExtra("download", download);
-        LocalBroadcastManager.getInstance(DownloadService.this).sendBroadcast(intent);
-    }
+		sendIntent(download);
+		notificationBuilder.setProgress(100, download.getProgress(), false);
+		notificationBuilder.setContentText(
+				StringUtils.getDataSize(download.getCurrentFileSize()) + "/" +
+						StringUtils.getDataSize(download.getTotalFileSize()));
+		notificationManager.notify(0, notificationBuilder.build());
+	}
 
-    @Override
-    public void onTaskRemoved(Intent rootIntent) {
-        notificationManager.cancel(0);
-    }
+	private void sendIntent(Download download) {
+
+		Intent intent = new Intent(MainActivity.MESSAGE_PROGRESS);
+		intent.putExtra("download", download);
+		LocalBroadcastManager.getInstance(DownloadService.this).sendBroadcast(intent);
+	}
+
+	@Override
+	public void onTaskRemoved(Intent rootIntent) {
+		notificationManager.cancel(0);
+	}
 }
