@@ -17,6 +17,11 @@ import com.heshun.rrdownload.bean.Download;
 import com.heshun.rrdownload.service.DownloadService;
 import com.heshun.rrdownload.utils.StringUtils;
 
+/**
+ * 下载过程分两路走
+ * 第一路通过retrofit的get请求获取到ResponseBody，通过RxJava转换成InputStream异步写入文件
+ * 第二路在okHttp层添加拦截器，通过拦截器获取到Response的body数据，通过广播实时更新下载进度
+ */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     public static final String MESSAGE_PROGRESS = "message_progress";

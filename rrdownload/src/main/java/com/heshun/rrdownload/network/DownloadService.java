@@ -14,5 +14,5 @@ public interface DownloadService {
 
     @Streaming
     @GET
-    Observable<ResponseBody> download(@Url String url);
+    Observable<ResponseBody> download(@Url String url);//流是从这边来的
 }

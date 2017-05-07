@@ -55,6 +55,7 @@ public class DownloadProgressResponseBody extends ResponseBody {
                 totalBytesRead += bytesRead != -1 ? bytesRead : 0;
 
                 if (null != progressListener) {
+                    //3、给回调函数赋值
                     progressListener.update(totalBytesRead, responseBody.contentLength(), bytesRead == -1);
                 }
                 return bytesRead;

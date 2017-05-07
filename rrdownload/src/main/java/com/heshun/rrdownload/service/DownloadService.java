@@ -24,6 +24,7 @@ import rx.Subscriber;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 /**
+ * 下载服务，发送广播进行回调
  * Created by Jcs on 16/7/5.
  */
 public class DownloadService extends IntentService {
@@ -58,8 +59,11 @@ public class DownloadService extends IntentService {
 	}
 
 	private void download() {
+		//拦截器与视图的桥梁，回调处理
+		//1、实例化监听器
 		DownloadProgressListener listener = new DownloadProgressListener() {
 			@Override
+			//4、收到回调数据
 			public void update(long bytesRead, long contentLength, boolean done) {
 				//不频繁发送通知，防止通知栏下拉卡顿
 				int progress = (int) ((bytesRead * 100) / contentLength);
@@ -68,7 +72,7 @@ public class DownloadService extends IntentService {
 					download.setTotalFileSize(contentLength);
 					download.setCurrentFileSize(bytesRead);
 					download.setProgress(progress);
-
+					//发广播在此执行
 					sendNotification(download);
 				}
 			}
@@ -98,7 +102,7 @@ public class DownloadService extends IntentService {
 
 			@Override
 			public void onNext(Object o) {
-
+				//已经在doOnNexr里处理了
 			}
 		});
 	}
@@ -125,7 +129,7 @@ public class DownloadService extends IntentService {
 	}
 
 	private void sendNotification(Download download) {
-
+		//发广播
 		sendIntent(download);
 		notificationBuilder.setProgress(100, download.getProgress(), false);
 		notificationBuilder.setContentText(
@@ -134,6 +138,10 @@ public class DownloadService extends IntentService {
 		notificationManager.notify(0, notificationBuilder.build());
 	}
 
+	/**
+	 * 发送广播
+	 * @param download
+	 */
 	private void sendIntent(Download download) {
 
 		Intent intent = new Intent(MainActivity.MESSAGE_PROGRESS);
