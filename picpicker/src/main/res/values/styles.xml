@@ -1,0 +1,22 @@
+<resources>
+
+    <!-- Base application theme. -->
+<!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>-->
+    <color name="list_bg">#3B3B3B</color>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="ZhihuOverlay" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">@color/zhihu_primary</item>
+    </style>
+
+    <style name="DraculaOverlay" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">@color/dracula_primary</item>
+    </style>
+</resources>

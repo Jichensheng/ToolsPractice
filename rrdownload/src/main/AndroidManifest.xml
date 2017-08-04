@@ -17,6 +17,16 @@
             </intent-filter>
         </activity>
         <service android:name=".service.DownloadService" />
+        <provider
+        android:name="android.support.v4.content.FileProvider"
+        android:authorities="com.heshun.rrdownload.fileprovider"
+        android:grantUriPermissions="true"
+        android:exported="false">
+        <!--元数据-->
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/file_paths" />
+    </provider>
     </application>
 
 </manifest>

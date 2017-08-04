@@ -1,5 +1,6 @@
 package com.heshun.rrdownload;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,10 +13,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.heshun.rrdownload.bean.Download;
 import com.heshun.rrdownload.service.DownloadService;
 import com.heshun.rrdownload.utils.StringUtils;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * 下载过程分两路走
@@ -71,9 +77,36 @@ public class MainActivity extends AppCompatActivity {
         btn_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RxPermissions rxPermissions = new RxPermissions(MainActivity.this);
+                rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .subscribe(new Observer<Boolean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
 
-                    Intent intent = new Intent(MainActivity.this, DownloadService.class);
-                    startService(intent);
+                            }
+
+                            @Override
+                            public void onNext(Boolean aBoolean) {
+                                if (aBoolean) {
+                                    Intent intent = new Intent(MainActivity.this, DownloadService.class);
+                                    startService(intent);
+                                } else {
+                                    Toast.makeText(MainActivity.this, "权限没允许", Toast.LENGTH_LONG)
+                                            .show();
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+
 
             }
         });

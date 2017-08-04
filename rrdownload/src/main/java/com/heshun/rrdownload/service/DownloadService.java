@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -18,8 +19,10 @@ import com.heshun.rrdownload.network.download.DownloadProgressListener;
 import com.heshun.rrdownload.utils.StringUtils;
 
 import java.io.File;
+import java.io.InputStream;
 
-import rx.Subscriber;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
@@ -54,6 +57,7 @@ public class DownloadService extends IntentService {
 				.setAutoCancel(true);
 
 		notificationManager.notify(0, notificationBuilder.build());
+		//监听判断
 
 		download();
 	}
@@ -87,10 +91,15 @@ public class DownloadService extends IntentService {
 
 		String baseUrl = StringUtils.getHostName(apkUrl);
 
-		new DownloadAPI(baseUrl, listener).downloadAPK(apkUrl, outputFile, new Subscriber() {
+		new DownloadAPI(baseUrl, listener).downloadAPK(apkUrl, outputFile, new Observer<InputStream>() {
 			@Override
-			public void onCompleted() {
-				downloadCompleted(true);
+			public void onSubscribe(Disposable d) {
+
+			}
+
+			@Override
+			public void onNext(InputStream value) {
+				//已经在doOnNexr里处理了
 			}
 
 			@Override
@@ -101,8 +110,8 @@ public class DownloadService extends IntentService {
 			}
 
 			@Override
-			public void onNext(Object o) {
-				//已经在doOnNexr里处理了
+			public void onComplete() {
+				downloadCompleted(true);
 			}
 		});
 	}
@@ -120,9 +129,13 @@ public class DownloadService extends IntentService {
 
 
 			//安装apk
+			Uri apkUri= FileProvider.getUriForFile(this,"com.heshun.rrdownload.fileprovider",outputFile);
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-			intent.setDataAndType(Uri.fromFile(outputFile), "application/vnd.android.package-archive");
+			//添加这一句表示对目标应用临时授权该Uri所代表的文件
+			intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//			intent.setDataAndType(Uri.fromFile(outputFile), "application/vnd.android.package-archive");
+			intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
 			startActivity(intent);
 		}
 
@@ -153,4 +166,5 @@ public class DownloadService extends IntentService {
 	public void onTaskRemoved(Intent rootIntent) {
 		notificationManager.cancel(0);
 	}
+
 }
