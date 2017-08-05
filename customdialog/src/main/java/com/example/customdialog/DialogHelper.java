@@ -42,6 +42,7 @@ public class DialogHelper {
      */
     public AlertDialog show(DialogInterface.OnClickListener listenerOk,
                             boolean cancelable, int viewId, String title,String content) {
+//        AlertDialog.Builder dialog = new AlertDialog.Builder(context,R.style.CustomDialog);
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);
         if (title != null) {
             dialog.setTitle(title);

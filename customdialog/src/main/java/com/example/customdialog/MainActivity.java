@@ -14,9 +14,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        makeDialog();
+        makeDialog();
         UpdataDialog updataDialog=new UpdataDialog(this,R.layout.loading,new int[0]);
-        updataDialog.setCancelable(false);
         updataDialog.show();
     }
 

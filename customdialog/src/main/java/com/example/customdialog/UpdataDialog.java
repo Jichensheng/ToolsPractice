@@ -36,7 +36,7 @@ public class UpdataDialog extends Dialog implements View.OnClickListener {
 //        window.setWindowAnimations(R.style.bottom_menu_animation); // 添加动画效果
         setContentView(layoutResID);
         // 点击Dialog外部消失
-//        setCanceledOnTouchOutside(true);
+        setCanceledOnTouchOutside(true);
         for (int id : listenedItems) {
             findViewById(id).setOnClickListener(this);
         }
