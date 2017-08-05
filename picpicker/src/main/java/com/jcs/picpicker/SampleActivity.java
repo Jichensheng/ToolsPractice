@@ -1,19 +1,23 @@
 package com.jcs.picpicker;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ContentFrameLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -117,7 +121,7 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
 	}
 
 	private static class UriAdapter extends RecyclerView.Adapter<UriAdapter.UriViewHolder> {
-
+        private Context context;
 		private List<Uri> mUris;
 		private List<String> mPaths;
 
@@ -129,6 +133,7 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
 
 		@Override
 		public UriViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            context=parent.getContext();
 			return new UriViewHolder(
 					LayoutInflater.from(parent.getContext()).inflate(R.layout.uri_item, parent, false));
 		}
@@ -137,7 +142,8 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
 		public void onBindViewHolder(UriViewHolder holder, int position) {
 			holder.mUri.setText(mUris.get(position).toString());
 			holder.mPath.setText(mPaths.get(position));
-
+//            holder.imageView.setImageURI(mUris.get(position));
+            Picasso.with(context).load(mUris.get(position)).resize(1000,750).centerInside().into(holder.imageView);
 			holder.mUri.setAlpha(position % 2 == 0 ? 1.0f : 0.54f);
 			holder.mPath.setAlpha(position % 2 == 0 ? 1.0f : 0.54f);
 		}
@@ -151,11 +157,12 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
 
 			private TextView mUri;
 			private TextView mPath;
-
+            private ImageView imageView;
 			UriViewHolder(View contentView) {
 				super(contentView);
 				mUri = (TextView) contentView.findViewById(R.id.uri);
 				mPath = (TextView) contentView.findViewById(R.id.path);
+                imageView = (ImageView) contentView.findViewById(R.id.imageView);
 			}
 		}
 	}
