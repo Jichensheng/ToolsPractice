@@ -57,6 +57,7 @@ public class DownloadAPI {
             public void accept(InputStream inputStream) throws Exception {
 
             }
+            byte[] u=new byte[3];
 
         };
         retrofit.create(DownloadService.class)
