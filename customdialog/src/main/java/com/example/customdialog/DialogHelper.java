@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
+import android.support.annotation.StyleRes;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
@@ -32,18 +33,27 @@ public class DialogHelper {
     }
 
     /**
-     * 自带的dialog
-     * @param listenerOk 回调函数
-     * @param cancelable 是否能通过其他方式取消
-     * @param viewId     自定义view
+     * 最全的dialog
+     *
+     * @param listenerOk
+     * @param cancelable
+     * @param viewId
+     * @param style
      * @param title
      * @param content
+     * @param negative
      * @return
      */
     public AlertDialog show(DialogInterface.OnClickListener listenerOk,
-                            boolean cancelable, int viewId, String title,String content) {
-//        AlertDialog.Builder dialog = new AlertDialog.Builder(context,R.style.CustomDialog);
-        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                            boolean cancelable, int viewId,
+                            @StyleRes int style, String title, String content, boolean negative
+    ) {
+        AlertDialog.Builder dialog;
+        //带样式的
+        if (style != 0) {
+            dialog = new AlertDialog.Builder(context, R.style.CustomDialog);
+        } else
+            dialog = new AlertDialog.Builder(context);
         if (title != null) {
             dialog.setTitle(title);
         }
@@ -51,12 +61,39 @@ public class DialogHelper {
             dialog.setMessage(content);
         }
         dialog.setCancelable(cancelable);
-        dialog.setPositiveButton("确定", listenerOk);
-        dialog.setNegativeButton("取消", null);
+        if (listenerOk != null) {
+            dialog.setPositiveButton("确定", listenerOk);
+        }
+        if (negative) {
+            dialog.setNegativeButton("取消", null);
+        }
         if (viewId != 0) {
             dialog.setView(viewId);
         }
-        return  dialog.show();
+        return dialog.show();
+    }
+
+    /**
+     * 背景透明的dialog,适合loading
+     *
+     * @param viewId
+     * @return
+     */
+    public AlertDialog show(int viewId) {
+        return show(null, false, viewId, R.style.CustomDialog, null, null,false);
+    }
+
+    /**
+     * 按返回键可以消失的普通dialog
+     *
+     * @param listenerOk ok键盘回调事件
+     * @param title
+     * @param content
+     * @return
+     */
+    public AlertDialog show(DialogInterface.OnClickListener listenerOk
+            , String title, String content) {
+        return show(listenerOk, true, 0, 0, title, content,true);
     }
 
 }

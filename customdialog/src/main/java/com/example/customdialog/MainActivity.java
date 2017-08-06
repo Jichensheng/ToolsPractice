@@ -1,6 +1,10 @@
 package com.example.customdialog;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.DialogInterface;
+import android.support.v4.animation.ValueAnimatorCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +19,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         makeDialog();
-        UpdataDialog updataDialog=new UpdataDialog(this,R.layout.loading,new int[0]);
-        updataDialog.show();
+//        UpdataDialog updataDialog=new UpdataDialog(this,R.layout.loading,new int[0]);
+//        updataDialog.show();
+        final AlertDialog loading = DialogHelper.getInstance(this).show(R.layout.loading);
+        ValueAnimator animator=ValueAnimator.ofFloat(0,1);
+        animator.setDuration(3000);
+        animator.setRepeatCount(2);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+                loading.dismiss();
+            }
+        });
+        animator.start();
     }
 
     private void makeDialog() {
@@ -42,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         Toast.makeText(MainActivity.this, "自定义", Toast.LENGTH_SHORT).show();
                                     }
-                                }, true, R.layout.dialog_updataversion, "Title", "内容");
+                                },"Title", "内容");
                         break;
                 }
                 updataDialog.dismiss();
