@@ -6,15 +6,13 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.igexin.sdk.GTIntentService;
-import com.igexin.sdk.PushConsts;
 import com.igexin.sdk.PushManager;
-import com.igexin.sdk.message.FeedbackCmdMessage;
 import com.igexin.sdk.message.GTCmdMessage;
 import com.igexin.sdk.message.GTTransmitMessage;
-import com.igexin.sdk.message.SetTagCmdMessage;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 从2.9.5.0版本开始，为了解决小概率发生的Android广播丢失问题，
@@ -38,7 +36,6 @@ public class DemoIntentService extends GTIntentService {
 
     @Override
     public void onReceiveServicePid(Context context, int pid) {
-        Toast.makeText(context, "pid" + pid, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -69,8 +66,10 @@ public class DemoIntentService extends GTIntentService {
                 cnt++;
             }
             Log.e(TAG, "onReceiveMessageData: " + data);
+
+            EventBus.getDefault().post(new MessageEvent(data));
             //发送message
-            sendMessage(data, 0);
+            sendMessage(data+"  ——来自Message", 0);
             Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             Ringtone r = RingtoneManager.getRingtone(context, notification);
             r.play();
