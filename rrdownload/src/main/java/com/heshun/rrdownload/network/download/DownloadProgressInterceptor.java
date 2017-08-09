@@ -6,7 +6,7 @@ import okhttp3.Interceptor;
 import okhttp3.Response;
 
 /**
- * Interceptor for download
+ * 下载进度拦截器
  * Created by Jcs on 16/5/11.
  */
 public class DownloadProgressInterceptor implements Interceptor {
