@@ -1,4 +1,4 @@
-package com.jcs.mobshare.wxapi;
+package com.jcs.mobshare;
 
 
 import com.umeng.weixin.callback.WXCallbackActivity;

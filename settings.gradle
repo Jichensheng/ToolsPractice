@@ -1,1 +1,1 @@
-include ':sharepractice', ':bvpager', ':retrofitdemo', ':crash', ':jpush', ':retrofitrxjava', ':rrdownload', ':filesystem', ':sava', ':test2', ':picpicker', ':matisse', ':customdialog', ':wugetui', ':mobshare', ':locationbaidu'
+include ':sharepractice', ':bvpager', ':retrofitdemo', ':crash', ':jpush', ':retrofitrxjava', ':rrdownload', ':filesystem', ':sava', ':test2', ':picpicker', ':matisse', ':customdialog', ':wugetui', ':locationbaidu', ':mobshare'

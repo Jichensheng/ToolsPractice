@@ -20,8 +20,7 @@ public class DownloadProgressResponseBody extends ResponseBody {
     private DownloadProgressListener progressListener;
     private BufferedSource bufferedSource;
 
-    public DownloadProgressResponseBody(ResponseBody responseBody,
-                                        DownloadProgressListener progressListener) {
+    public DownloadProgressResponseBody(ResponseBody responseBody,  DownloadProgressListener progressListener) {
         this.responseBody = responseBody;
         this.progressListener = progressListener;
     }
