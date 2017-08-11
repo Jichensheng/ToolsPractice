@@ -185,6 +185,12 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
+	/**
+	 * QQ与新浪不需要添加Activity，但需要在使用QQ分享或者授权的Activity中，添加：
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);

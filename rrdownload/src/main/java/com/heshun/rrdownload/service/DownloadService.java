@@ -38,7 +38,7 @@ public class DownloadService extends IntentService {
 
 	int downloadCount = 0;
 
-	private String apkUrl = "http://download.fir.im/v2/app/install/5818acbcca87a836f50014af?download_token=a01301d7f6f8f4957643c3fcfe5ba6ff";
+	private String apkUrl = "http://58.216.106.170/appdl.hicloud.com/dl/appdl/application/apk/29/2922ddb8df974e0e86c51ba57abbbecb/com.zeachin.orange.1611021742.apk?mkey=598d50d09257c628&f=2664&c=0&sign=portal@portal1502443042154&source=portalsite&p=.apk";
 
 	public DownloadService() {
 		super("DownloadService");
@@ -130,11 +130,13 @@ public class DownloadService extends IntentService {
 
 			//安装apk
 			Uri apkUri= FileProvider.getUriForFile(this,"com.heshun.rrdownload.fileprovider",outputFile);
+			Log.e(TAG, "downloadCompleted: "+apkUri.getPath() );
+			Log.e(TAG, "downloadCompleted: "+apkUri.toString() );
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
 			//添加这一句表示对目标应用临时授权该Uri所代表的文件
 			intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//			intent.setDataAndType(Uri.fromFile(outputFile), "application/vnd.android.package-archive");
+			//intent.setDataAndType(Uri.fromFile(outputFile), "application/vnd.android.package-archive");
 			intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
 			startActivity(intent);
 		}
