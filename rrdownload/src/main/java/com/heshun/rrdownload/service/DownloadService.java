@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
@@ -81,8 +80,8 @@ public class DownloadService extends IntentService {
 				}
 			}
 		};
-		outputFile = new File(Environment.getExternalStoragePublicDirectory
-				(Environment.DIRECTORY_DOWNLOADS), "file.apk");
+//		outputFile = new File(Environment.getExternalStoragePublicDirectory (Environment.DIRECTORY_DOWNLOADS), "file.apk");
+		outputFile = new File(this.getExternalFilesDir(null), "file.apk");
 
 		if (outputFile.exists()) {
 			outputFile.delete();

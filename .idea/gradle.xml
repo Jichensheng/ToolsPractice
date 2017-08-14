@@ -24,6 +24,8 @@
             <option value="$PROJECT_DIR$/sharepractice" />
             <option value="$PROJECT_DIR$/test2" />
             <option value="$PROJECT_DIR$/wugetui" />
+            <option value="$PROJECT_DIR$/xrecyclerview" />
+            <option value="$PROJECT_DIR$/xrefresh" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

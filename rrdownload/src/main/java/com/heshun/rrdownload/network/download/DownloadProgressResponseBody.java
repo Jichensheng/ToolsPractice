@@ -12,6 +12,7 @@ import okio.Source;
 
 /**
  * ResponseBody for download
+ * 下载是继承ResponseBody
  * Created by Jcs on 16/5/11.
  */
 public class DownloadProgressResponseBody extends ResponseBody {

@@ -35,4 +35,22 @@
         android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="post"/>
+    <Button
+        android:id="@+id/upload_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_alignLeft="@+id/button"
+        android:layout_alignStart="@+id/button" android:layout_below="@+id/button"
+        android:layout_marginTop="35dp" android:text="upload"/>
+    <Button
+        android:id="@+id/up_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_alignLeft="@+id/upload_file"
+        android:layout_alignStart="@+id/upload_file" android:layout_below="@+id/upload_file"
+        android:layout_marginTop="17dp" android:text="upBody"/>
 </RelativeLayout>

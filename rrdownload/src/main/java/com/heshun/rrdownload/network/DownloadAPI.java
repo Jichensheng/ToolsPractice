@@ -52,14 +52,6 @@ public class DownloadAPI {
 
     public void downloadAPK(@NonNull String url, final File file, Observer<InputStream> observer) {
         Log.d(TAG, "downloadAPK: " + url);
-        Consumer<InputStream> streamConsumer=new Consumer<InputStream>() {
-            @Override
-            public void accept(InputStream inputStream) throws Exception {
-
-            }
-            byte[] u=new byte[3];
-
-        };
         retrofit.create(DownloadService.class)
                 .download(url)
                 .subscribeOn(Schedulers.newThread())
