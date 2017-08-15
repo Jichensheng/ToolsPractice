@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * xrv测试
+ */
 public class MainActivity extends AppCompatActivity {
 	private XRecyclerView mRecyclerView;
 	private int refreshTime = 0;
