@@ -7,3 +7,10 @@
 /build
 /captures
 .externalNativeBuild
+/matisse/build/
+.idea/compiler.xml
+.idea/copyright/
+.idea/misc.xml
+.idea/modules.xml
+matisse/build/
+test2/
