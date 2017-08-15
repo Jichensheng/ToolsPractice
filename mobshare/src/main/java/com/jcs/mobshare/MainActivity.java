@@ -37,24 +37,29 @@ public class MainActivity extends AppCompatActivity {
 		button2 = (Button) findViewById(R.id.button2);
 
 		mShareListener = new CustomShareListener(this);
-/*增加自定义按钮的分享面板*/
+		/*增加自定义按钮的分享面板*/
 		mShareAction = new ShareAction(MainActivity.this)
 				//各大平台按钮
 				.setDisplayList(
 						SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE,
-						SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
-						SHARE_MEDIA.ALIPAY, SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN,
-						SHARE_MEDIA.SMS/*短信按钮*/, SHARE_MEDIA.EMAIL, SHARE_MEDIA.YNOTE,
-						SHARE_MEDIA.EVERNOTE, SHARE_MEDIA.LAIWANG, SHARE_MEDIA.LAIWANG_DYNAMIC,
-						SHARE_MEDIA.LINKEDIN, SHARE_MEDIA.YIXIN, SHARE_MEDIA.YIXIN_CIRCLE,
-						SHARE_MEDIA.TENCENT, SHARE_MEDIA.FACEBOOK, SHARE_MEDIA.TWITTER,
-						SHARE_MEDIA.WHATSAPP, SHARE_MEDIA.GOOGLEPLUS, SHARE_MEDIA.LINE,
-						SHARE_MEDIA.INSTAGRAM, SHARE_MEDIA.KAKAO, SHARE_MEDIA.PINTEREST,
-						SHARE_MEDIA.POCKET, SHARE_MEDIA.TUMBLR, SHARE_MEDIA.FLICKR,
-						SHARE_MEDIA.FOURSQUARE, SHARE_MEDIA.MORE/*更多按钮*/)
+						SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE)
+				/**
+				 * ,
+				 SHARE_MEDIA.ALIPAY, SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN,
+				 SHARE_MEDIA.SMS, SHARE_MEDIA.EMAIL, SHARE_MEDIA.YNOTE,
+				SHARE_MEDIA.EVERNOTE, SHARE_MEDIA.LAIWANG, SHARE_MEDIA.LAIWANG_DYNAMIC,
+				SHARE_MEDIA.LINKEDIN, SHARE_MEDIA.YIXIN, SHARE_MEDIA.YIXIN_CIRCLE,
+				SHARE_MEDIA.TENCENT, SHARE_MEDIA.FACEBOOK, SHARE_MEDIA.TWITTER,
+				SHARE_MEDIA.WHATSAPP, SHARE_MEDIA.GOOGLEPLUS, SHARE_MEDIA.LINE,
+				SHARE_MEDIA.INSTAGRAM, SHARE_MEDIA.KAKAO, SHARE_MEDIA.PINTEREST,
+				SHARE_MEDIA.POCKET, SHARE_MEDIA.TUMBLR, SHARE_MEDIA.FLICKR,
+				SHARE_MEDIA.FOURSQUARE, SHARE_MEDIA.MORE
+				 */
+
+
 				//自定义按钮 显示的文字  关键字 图标 灰色图标
-				.addButton("umeng_sharebutton_copy", "umeng_sharebutton_copy", "umeng_socialize_copy", "umeng_socialize_copy")
-				.addButton("umeng_sharebutton_copyurl", "umeng_sharebutton_copyurl", "umeng_socialize_copyurl", "umeng_socialize_copyurl")
+//				.addButton("umeng_sharebutton_copy", "umeng_sharebutton_copy", "umeng_socialize_copy", "umeng_socialize_copy")
+//				.addButton("umeng_sharebutton_copyurl", "umeng_sharebutton_copyurl", "umeng_socialize_copyurl", "umeng_socialize_copyurl")
 				//分享面板点击事件
 				.setShareboardclickCallback(new ShareBoardlistener() {
 					@Override
@@ -136,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 		public void onResult(SHARE_MEDIA platform) {
 
 			if (platform.name().equals("WEIXIN_FAVORITE")) {
-				Toast.makeText(MainActivity.this, platform + " 收藏成功啦", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mActivity.get(), platform + " 收藏成功啦", Toast.LENGTH_SHORT).show();
 			} else {
 				if (platform != SHARE_MEDIA.MORE && platform != SHARE_MEDIA.SMS
 						&& platform != SHARE_MEDIA.EMAIL

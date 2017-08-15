@@ -7,6 +7,8 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -24,12 +26,17 @@ public interface DownloadService {
     @GET
     Observable<ResponseBody> download(@Url String url);//流是从这边来的
 
+
+    @FormUrlEncoded
+    @POST("magazine/magazine/test")
+    Observable<ResponseBody> varPost(@Field("page") int page, @Field("pageSize") int size );
+
     /**
      * 直接post一个实体
      * @param download
      * @return
      */
-    @POST("book/reviews")
+    @POST("magazine/magazine/test")
     Observable<ResponseBody> testPostBody(@Body Download download);
 
 /*    @Multipart
@@ -43,7 +50,7 @@ public interface DownloadService {
      * @return
      */
     @Multipart
-    @POST("upload/pic")
+    @POST("magazine/magazine/test")
     Observable<ResponseBody> uploadPic( @Part() MultipartBody.Part file);
 
     /**
@@ -51,6 +58,6 @@ public interface DownloadService {
      * @param Body
      * @return
      */
-    @POST("upload/body")
+    @POST("magazine/magazine/test")
     Observable<ResponseBody> upLoadBody(  @Body RequestBody Body);
 }

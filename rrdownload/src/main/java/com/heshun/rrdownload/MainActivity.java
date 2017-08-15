@@ -95,6 +95,38 @@ public class MainActivity extends AppCompatActivity {
 
 		multiBody();
 
+		varPost();
+
+	}
+
+	private void varPost() {
+
+		Button var_post= (Button) findViewById(R.id.var_post);
+		var_post.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Retrofit retrofit =new Retrofit.Builder()
+						.baseUrl("http://s1m7444195.iask.in/")
+						.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+						.addConverterFactory(GsonConverterFactory.create())
+						.build();
+				retrofit.create(com.heshun.rrdownload.network.DownloadService.class)
+						.varPost(5,244)
+						.subscribeOn(Schedulers.newThread())
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribe(new Consumer<ResponseBody>() {
+							@Override
+							public void accept(ResponseBody responseBody) throws Exception {
+
+							}
+						}, new Consumer<Throwable>() {
+							@Override
+							public void accept(Throwable throwable) throws Exception {
+
+							}
+						});
+			}
+		});
 	}
 
 	private void download() {
@@ -142,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Retrofit retrofit = new Retrofit.Builder()
-						.baseUrl("http://www.po.cn/")
+						.baseUrl("http://s1m7444195.iask.in/")
 						.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 						.addConverterFactory(GsonConverterFactory.create())
 						.build();
@@ -175,19 +207,19 @@ public class MainActivity extends AppCompatActivity {
 	private void upload() {
 		Button btn = (Button) findViewById(R.id.upload_file);
 
-		File file = new File(getExternalFilesDir(null).getAbsolutePath() + "/text.txt");
+		File file = new File(getExternalFilesDir(null).getAbsolutePath() + "/file.apk");
 
 		// 创建 RequestBody，用于封装构建RequestBody
 		RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
 		// MultipartBody.Part  和后端约定好Key，
-		final MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+		final MultipartBody.Part body = MultipartBody.Part.createFormData("apks", file.getName(), requestFile);
 
 		btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Retrofit re = new Retrofit.Builder()
-						.baseUrl("http://www.po.cn/")
+						.baseUrl("http://s1m7444195.iask.in/")
 						.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 						.addConverterFactory(GsonConverterFactory.create())
 						.build();
@@ -217,17 +249,17 @@ public class MainActivity extends AppCompatActivity {
 		button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				File file=new File(getExternalFilesDir(null).getAbsolutePath()+"/text.txt");
+				File file=new File(getExternalFilesDir(null).getAbsolutePath()+"/jcs.png");
 
 				MultipartBody.Builder requestBodyBuilder=new MultipartBody.Builder().setType(MultipartBody.FORM)
 						.addFormDataPart("name","Jichensheng")
 						.addFormDataPart("psw","mima")
-						.addFormDataPart("head","head.jpg",RequestBody.create(MediaType.parse("image/*"),file));
-				for (int i = 0; i < 3; i++) {
-					requestBodyBuilder.addFormDataPart("head","head"+i+".jpg",RequestBody.create(MediaType.parse("image/*"),file));
+						.addFormDataPart("head","head.png",RequestBody.create(MediaType.parse("image/*"),file));
+				for (int i = 0; i < 2; i++) {
+					requestBodyBuilder.addFormDataPart("head","head"+i+".png",RequestBody.create(MediaType.parse("image/*"),file));
 				}
 				Retrofit retrofit=new Retrofit.Builder()
-						.baseUrl("http://www.po.cn/")
+						.baseUrl("http://s1m7444195.iask.in/")
 						.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 						.addConverterFactory(GsonConverterFactory.create())
 						.build();
@@ -238,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
 						.subscribe(new Consumer<ResponseBody>() {
 							@Override
 							public void accept(ResponseBody responseBody) throws Exception {
-
+								Toast.makeText(MainActivity.this, responseBody.toString(), Toast.LENGTH_SHORT).show();
 							}
 						}, new Consumer<Throwable>() {
 							@Override
