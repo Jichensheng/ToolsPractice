@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * xrv测试分支
+ * xrv测试
  */
 public class MainActivity extends AppCompatActivity {
 	private XRecyclerView mRecyclerView;
