@@ -4,6 +4,9 @@ import android.app.Application;
 import android.os.Handler;
 import android.os.Message;
 
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
+
 /**
  * Created by Jcs on 2017/8/7.
  */
@@ -19,6 +22,8 @@ public class WuApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		Beta.upgradeDialogLayoutId = R.layout.upgrade_layout;
+		Bugly.init(getApplicationContext(), "0557130f5a", false);
 		if (handler == null) {
 			handler = new DemoHandler();
 		}

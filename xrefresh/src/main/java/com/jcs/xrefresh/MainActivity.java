@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.allen.library.SuperTextView;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnSuperTextClickListener {
 	private XRecyclerView mRecyclerView;
 	private int refreshTime = 0;
 	private List<String> list;
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		list=new ArrayList<>();
+		list = new ArrayList<>();
 		addItem(list);
 
 		mRecyclerView = (XRecyclerView) findViewById(R.id.xrv);
@@ -36,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
 		layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 		mRecyclerView.setLayoutManager(layoutManager);
 
-		final RecyclerView.Adapter adapter = getAdatapter(this,list);
+		final RecyclerView.Adapter adapter = getAdatapter(this,this, list);
+
 		//上拉下拉风格
 		mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
 		mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallZigZagDeflect);
@@ -47,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
 		mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
 			@Override
 			public void onRefresh() {
-				refreshTime ++;
-				new Handler().postDelayed(new Runnable(){
+				refreshTime++;
+				new Handler().postDelayed(new Runnable() {
 					public void run() {
 						list.clear();
-						for(int i = 0; i < 15 ;i++){
+						for (int i = 0; i < 15; i++) {
 							list.add("item" + i + "after " + refreshTime + " times of refresh");
 						}
 						adapter.notifyDataSetChanged();
@@ -64,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onLoadMore() {
-				if(times < 2){
-					new Handler().postDelayed(new Runnable(){
+				if (times < 2) {
+					new Handler().postDelayed(new Runnable() {
 						public void run() {
-							for(int i = 0; i < 15 ;i++){
-								list.add("item" + (1 + list.size() ) );
+							for (int i = 0; i < 15; i++) {
+								list.add("item" + (1 + list.size()));
 							}
 							//加载更多
 							mRecyclerView.loadMoreComplete();
@@ -78,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
 				} else {
 					new Handler().postDelayed(new Runnable() {
 						public void run() {
-							for(int i = 0; i < 9 ;i++){
-								list.add("item" + (1 + list.size() ) );
+							for (int i = 0; i < 9; i++) {
+								list.add("item" + (1 + list.size()));
 							}
 							//没有更多了
 							mRecyclerView.setNoMore(true);
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 						}
 					}, 1000);
 				}
-				times ++;
+				times++;
 			}
 		});
 
@@ -98,23 +101,54 @@ public class MainActivity extends AppCompatActivity {
 			list.add("new " + new Random().nextInt(1500));
 		}
 	}
-	private static RecyclerView.Adapter getAdatapter(final Context context, final List<String> list){
+
+	@Override
+	public void onSClick(SuperTextView textView) {
+		textView.setLeftTvClickListener(new SuperTextView.OnLeftTvClickListener() {
+			@Override
+			public void onClickListener() {
+				Toast.makeText(MainActivity.this, "YYYYY", Toast.LENGTH_SHORT).show();
+			}
+		});
+	}
+
+	private static RecyclerView.Adapter getAdatapter(final OnSuperTextClickListener listener, final Context context, final List<String> list) {
+
 		return new RecyclerView.Adapter() {
+
 			@Override
 			public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-				return new XHolder(LayoutInflater.from(context).inflate(R.layout.holder_text, parent, false));
+				switch (viewType) {
+					case 0:
+						return new XHolder(LayoutInflater.from(context).inflate(R.layout.holder_text, parent, false));
+					default:
+						return new SuperHolder(LayoutInflater.from(context).inflate(R.layout.holder_super_text, parent, false));
+				}
 			}
 
 			@Override
-			public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+			public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
 				if (holder instanceof XHolder) {
 					((XHolder) holder).textView.setText(list.get(position));
+				} else if (holder instanceof SuperHolder) {
+					((SuperHolder) holder).superTextView.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							listener.onSClick(((SuperHolder) holder).superTextView);
+						}
+					});
+					((SuperHolder) holder).superTextView.setLeftTopString(list.get(position));
 				}
 			}
 
 			@Override
 			public int getItemCount() {
 				return list.size();
+			}
+
+			@Override
+			public int getItemViewType(int position) {
+				return position % 2;
 			}
 
 			class XHolder extends RecyclerView.ViewHolder {
@@ -125,6 +159,20 @@ public class MainActivity extends AppCompatActivity {
 					textView = (TextView) itemView.findViewById(R.id.tv_holder);
 				}
 			}
+
+			class SuperHolder extends RecyclerView.ViewHolder {
+				SuperTextView superTextView;
+
+				public SuperHolder(View itemView) {
+					super(itemView);
+					superTextView = (SuperTextView) itemView.findViewById(R.id.stv_click);
+				}
+			}
+
+
 		};
 	}
+
+
+
 }

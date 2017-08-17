@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.jcs.wugetui">
-
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:name=".WuApplication"
         android:allowBackup="true"
@@ -12,7 +17,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            >
+        >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -20,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity2"/>
+
         <service
             android:name=".DemoPushService"
             android:exported="true"
@@ -27,6 +33,12 @@
             android:process=":pushservice">
         </service>
         <service android:name=".DemoIntentService"/>
+
+        <!--bugly-->
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent"/>
     </application>
 
 </manifest>
