@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:drawablePadding="10dp"
             android:gravity="center_horizontal"
-            android:text="Muse"
+            android:text="吃饭"
             android:textColor="@color/colorBlack33"
             android:textSize="12sp" />
 
@@ -35,7 +35,7 @@
             android:layout_weight="1"
             android:drawablePadding="10dp"
             android:gravity="center_horizontal"
-            android:text="Orange"
+            android:text="睡觉"
             android:textColor="@color/colorBlack33"
             android:textSize="12sp" />
 
@@ -46,7 +46,7 @@
             android:layout_weight="1"
             android:drawablePadding="10dp"
             android:gravity="center_horizontal"
-            android:text="Swim"
+            android:text="打扑克"
             android:textColor="@color/colorBlack33"
             android:textSize="12sp" />
 
@@ -57,7 +57,7 @@
             android:layout_weight="1"
             android:drawablePadding="10dp"
             android:gravity="center_horizontal"
-            android:text="Soccer"
+            android:text="打豆豆"
             android:textColor="@color/colorBlack33"
             android:textSize="12sp" />
 
@@ -77,7 +77,7 @@
             android:layout_weight="1"
             android:drawablePadding="10dp"
             android:gravity="center_horizontal"
-            android:text="Storm"
+            android:text="暴风雪"
             android:textColor="@color/colorBlack33"
             android:textSize="12sp" />
 
@@ -88,7 +88,7 @@
             android:layout_weight="1"
             android:drawablePadding="10dp"
             android:gravity="center_horizontal"
-            android:text="Music"
+            android:text="呼啦"
             android:textColor="@color/colorBlack33"
             android:textSize="12sp" />
 
@@ -99,7 +99,7 @@
             android:layout_weight="1"
             android:drawablePadding="10dp"
             android:gravity="center_horizontal"
-            android:text="Basketball"
+            android:text="格格"
             android:textColor="@color/colorBlack33"
             android:textSize="12sp" />
 
@@ -109,7 +109,7 @@
             android:layout_weight="1"
             android:drawablePadding="10dp"
             android:gravity="center_horizontal"
-            android:text="Lightning"
+            android:text="说的"
             android:textSize="12sp" />
 
     </LinearLayout>
