@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:clipChildren="false"
+              android:clipToPadding="false">
+    <!--
+        结构为：CoordinatorLayout包含头部AppBarLayou和内容区
+            头部APpBarLayout中又包含了可折叠的CollaosingToolbarLayout
+                可折叠区又包含了Toolbar和
+
+
+    -->
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBg"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <!--头部开始****************************************************************************-->
+        <!--AppBarLayout继承自LinearLayout，布局方向为垂直方向。所以你可以把它当成垂直布局的LinearLayout来使用-->
+
+        <!--1、AppBarLayout内部的CollapsingToolbarLayou要折叠吧,什么时候触发折叠
+            2、当滑动的时候
+            它怎么知道什么时候滑动？答案在AppBarLayoutOverScrollViewBehavior这个Behavior中
+            behavior中有一个onStartNestedScroll方法可以对滑动布局做监控
+            3、谁来调用behavior的方法呢？那就是CoordinatorLayout了
+
+            总结：总体思想是CoordinatorLayout的子view都有设置layout_behavior的功能，behavior是对NestedScrollView及其子类的滑动做出反应的类
+            behavior和NestedScrollView联系的纽带就是COordinatorlayout
+
+
+        -->
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBg"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp"
+            app:layout_behavior="@string/appbar_overscroll_behavior">
+
+            <!--可折叠的Toolbar-->
+            <!--CollapsingToolbarLayout继承自FrameLayout，子元素叠加在左上角-->
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <!--背景图-->
+                <include layout="@layout/layout_uc_head_bg"/>
+                <!--头中部-->
+                <include layout="@layout/layout_uc_head_middle"/>
+
+                <!--折叠模式设置成pin时，当CollapsingToolbarLayout完全收缩后，Toolbar还可以保留在屏幕上。-->
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/titlebar_height"
+                    android:alpha="0"
+                    android:background="@android:color/white"
+                    android:tag="toolbar"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/Widget.AppCompat.Toolbar"/>
+
+                <include layout="@layout/layout_uc_head_title"/>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+        <!--头部结束****************************************************************************-->
+
+        <!--主要内容区：TabLayout+RecyclerView
+            设置的behavior为默认的appbar_scrolling_view_behavior
+        -->
+        <include layout="@layout/layout_uc_content"/>
+
+        <!--大号头像区域：通过layout_anchor设置靠山，通过layout_anchorGravity设置在靠山中的位置-->
+        <com.jcs.snackbar.widget.CircleImageView
+            android:id="@+id/uc_avater"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/ic_avater"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="2dp"
+            app:layout_anchor="@+id/middle_layout"
+            app:layout_anchorGravity="top"
+            app:layout_behavior="@string/appbar_circleimageview_behavior"/>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
