@@ -7,4 +7,9 @@
     <color name="colorBg">#f5f5f5</color>
     <color name="colorBlack33">#333333</color>
     <color name="pink_fc4f74">#fc4f74</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#FFB4B4B4</color>
+    <color name="subtitle_text_gray">#999999</color>
+    <color name="menu_grey">#33485C</color>
 </resources>

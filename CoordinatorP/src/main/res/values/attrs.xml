@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <declare-styleable name="TabView">
+        <attr name="iconFont" format="string" />
+        <attr name="iconText" format="string" />
+    </declare-styleable>
     <!--圆形图片-->
     <declare-styleable name="CircleImageView">
         <attr name="civ_border_width" format="dimension" />
@@ -16,5 +19,18 @@
         <attr name="round_textColor" format="color" />
         <attr name="round_textsize" format="dimension" />
         <attr name="round_max" format="integer"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="ClickableListItem">
+        <attr name="text" format="string" />
+        <attr name="subText" format="string" />
+        <attr name="containIcon" format="boolean" />
+        <attr name="imgsrc" format="reference|color" />
+        <attr name="textColor" format="reference|color" />
+        <attr name="subTextColor" format="reference|color" />
+        <attr name="textSize" format="dimension" />
+        <attr name="subTextSize" format="dimension" />
+        <attr name="hasdivider" format="boolean" />
+        <attr name="clickable" format="boolean" />
     </declare-styleable>
 </resources>

@@ -2,4 +2,11 @@
     <string name="app_name">SnackBar</string>
     <string name="appbar_overscroll_behavior">com.jcs.snackbar.behavior.AppBarLayoutOverScrollViewBehavior</string>
     <string name="appbar_circleimageview_behavior">com.jcs.snackbar.behavior.CircleImageInUsercBehavior</string>
+    <string name="fatie" > &#xe8a1;</string>
+    <string name="shoucangjia" > &#xe86e;</string>
+    <string name="dingyue" >&#xe624;</string>
+    <string name="history" >&#xe626;</string>
+    <string name="msg" >&#xe870;</string>
+    <string name="share" >&#xe86f;</string>
+
 </resources>
