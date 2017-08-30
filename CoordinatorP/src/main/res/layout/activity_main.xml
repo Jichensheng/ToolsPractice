@@ -70,7 +70,7 @@
         android:paddingBottom="10dp"
         android:background="#fff"
         android:layout_height="wrap_content">
-        <com.jcs.snackbar.widget.TabView
+        <com.jcs.snackbar.widget.IconFontTabView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
@@ -78,7 +78,7 @@
             app:iconFont="@string/fatie"
             app:iconText="我的帖子"
             />
-        <com.jcs.snackbar.widget.TabView
+        <com.jcs.snackbar.widget.IconFontTabView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"
@@ -86,7 +86,8 @@
             app:iconFont="@string/shoucangjia"
             app:iconText="收藏夹"
             />
-        <com.jcs.snackbar.widget.TabView
+        <com.jcs.snackbar.widget.IconFontTabView
+            android:id="@+id/iftv_guanzhu"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="center"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="TabView">
+    <declare-styleable name="IconFontTabView">
         <attr name="iconFont" format="string" />
         <attr name="iconText" format="string" />
     </declare-styleable>

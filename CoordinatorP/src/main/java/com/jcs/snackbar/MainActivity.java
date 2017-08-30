@@ -1,18 +1,10 @@
 package com.jcs.snackbar;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,6 +13,7 @@ import com.allen.library.SuperTextView;
 import com.jaeger.library.StatusBarUtil;
 import com.jcs.snackbar.widget.Bitmaptest;
 import com.jcs.snackbar.widget.FastBlur;
+import com.jcs.snackbar.widget.IconFontTabView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, String.valueOf(b), Toast.LENGTH_SHORT).show();
             }
         });
+
+        IconFontTabView iconFontTabView= (IconFontTabView) findViewById(R.id.iftv_guanzhu);
+        iconFontTabView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     private void blur(Bitmap bkg, ImageView view) {
