@@ -47,10 +47,10 @@ public class TService extends Service implements MediaPlayer.OnPreparedListener,
 		mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
 			@Override
 			public void onBufferingUpdate(MediaPlayer mp, int percent) {
-				Log.e(TAG, "onBufferingUpdate: "+percent );
-				Message msg=Message.obtain();
-				msg.what=4;
-				msg.arg1=percent;
+				Log.e(TAG, "onBufferingUpdate: " + percent);
+				Message msg = Message.obtain();
+				msg.what = 4;
+				msg.arg1 = percent;
 				sendToClient(msg);
 			}
 		});
@@ -83,9 +83,9 @@ public class TService extends Service implements MediaPlayer.OnPreparedListener,
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 				case 3:
-					play("http://ws.stream.qqmusic.qq.com/200881259.m4a?fromtag=46");
 					Message message = Message.obtain(null, 3);
 					message.arg1 = 999;
+						play("http://ws.stream.qqmusic.qq.com/200881259.m4a?fromtag=46");
 					cMessenger = msg.replyTo;
 					try {
 						cMessenger.send(message);
@@ -145,6 +145,7 @@ public class TService extends Service implements MediaPlayer.OnPreparedListener,
 			mediaPlayer.pause();
 		}
 	}
+
 	/**
 	 * 音乐继续播放
 	 */
@@ -157,6 +158,7 @@ public class TService extends Service implements MediaPlayer.OnPreparedListener,
 		}
 
 	}
+
 	@Override
 	public void onCompletion(MediaPlayer mp) {
 		Log.e(TAG, "onCompletion: ");
@@ -167,6 +169,7 @@ public class TService extends Service implements MediaPlayer.OnPreparedListener,
 
 	/**
 	 * 用客户端的Messenger向客户端发送消息
+	 *
 	 * @param msg
 	 */
 	private void sendToClient(Message msg) {
@@ -193,7 +196,7 @@ public class TService extends Service implements MediaPlayer.OnPreparedListener,
 		resume();
 		//开始启动一秒一次的计时更新
 		disposable = mObservable.subscribe(onNext);
-		mediaPlayer.seekTo(150*1000);
+		mediaPlayer.seekTo(150 * 1000);
 
 
 		Message msg = Message.obtain(null, 121);

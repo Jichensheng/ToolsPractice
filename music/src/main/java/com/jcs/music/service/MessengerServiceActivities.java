@@ -45,6 +45,14 @@ public class MessengerServiceActivities {
 			mCallbackText = (TextView) findViewById(R.id.callback);
 			mCallbackText.setText("Not attached.");
 
+			Intent intent = new Intent(this, TService.class);
+			if (!isBound) {
+				isBound = bindService(intent, connection, BIND_AUTO_CREATE);
+				//isBound = true;
+			} else {
+				sendMessage();
+			}
+
 		}
 
 		private Handler mHandler = new Handler() {
@@ -98,16 +106,15 @@ public class MessengerServiceActivities {
 		};
 
 		public void onClick(View v) {
-//			Intent intent = new Intent( this, MessengerService.class);
 			Intent intent = new Intent(this, TService.class);
 			switch (v.getId()) {
 				case R.id.bind:
-					if (!isBound) {
+				/*	if (!isBound) {
 						isBound = bindService(intent, connection, BIND_AUTO_CREATE);
 						//isBound = true;
 					} else {
 						sendMessage();
-					}
+					}*/
 					break;
 				case R.id.unbind:
 					if (isBound) {
