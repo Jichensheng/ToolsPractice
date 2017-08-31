@@ -14,13 +14,16 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.jcs.music.CDView;
 import com.jcs.music.R;
 
 public class MessengerServiceActivities {
 
-	public static class Binding extends Activity implements
-			View.OnClickListener {
+
+	public static class Binding extends Activity implements View.OnClickListener, CDView.OnPlayListener, CDView.OnStopListener {
+		private CDView cdView;
 		private String TAG = "Binding";
 
 		TextView mCallbackText;
@@ -35,6 +38,10 @@ public class MessengerServiceActivities {
 			findViewById(R.id.bind).setOnClickListener(this);
 			findViewById(R.id.unbind).setOnClickListener(this);
 
+			cdView = (CDView) findViewById(R.id.cd_music);
+
+			cdView.setOnPlayListener(this);
+			cdView.setOnStopListener(this);
 			mCallbackText = (TextView) findViewById(R.id.callback);
 			mCallbackText.setText("Not attached.");
 
@@ -46,7 +53,17 @@ public class MessengerServiceActivities {
 				Log.i(TAG, "handleMessage");
 				switch (msg.what) {
 					case MessengerService.MSG_SET_VALUE:
-						mCallbackText.setText("Received from service: " + (float)msg.arg1/1000 +" / " +(float)msg.arg2/1000);
+						mCallbackText.setText("Received from service: " + (float) msg.arg1 / 1000 + " / " + (float) msg.arg2 / 1000);
+						break;
+					case 121:
+						cdView.playMusic();
+						break;
+					case 131:
+						cdView.stopMusic();
+						cdView.resetCD();
+						break;
+					case 4:
+						Toast.makeText(Binding.this, "已缓存"+msg.arg1+"%", Toast.LENGTH_SHORT).show();
 						break;
 					default:
 						super.handleMessage(msg);
@@ -82,7 +99,7 @@ public class MessengerServiceActivities {
 
 		public void onClick(View v) {
 //			Intent intent = new Intent( this, MessengerService.class);
-			Intent intent = new Intent( this, TService.class);
+			Intent intent = new Intent(this, TService.class);
 			switch (v.getId()) {
 				case R.id.bind:
 					if (!isBound) {
@@ -117,12 +134,38 @@ public class MessengerServiceActivities {
 			Message message = Message.obtain(null, MessengerService.MSG_SET_VALUE);
 			message.replyTo = mMessenger;
 			try {
-				rMessenger.send(message);
+				if (rMessenger != null) {
+					rMessenger.send(message);
+				}
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
 		}
 
+
+		@Override
+		public void onPlayMusic() {
+			Message message = Message.obtain(null, 121);
+			try {
+				if (rMessenger != null) {
+					rMessenger.send(message);
+				}
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void onStopMusic() {
+			Message message = Message.obtain(null, 131);
+			try {
+				if (rMessenger != null) {
+					rMessenger.send(message);
+				}
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }  
