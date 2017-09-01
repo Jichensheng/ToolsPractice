@@ -171,4 +171,24 @@ public class MusicBean extends BaseBean{
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "MusicBean{" +
+                "id=" + id +
+                ", songname='" + songname + '\'' +
+                ", seconds=" + seconds +
+                ", albummid='" + albummid + '\'' +
+                ", songid=" + songid +
+                ", singerid=" + singerid +
+                ", albumpic_big='" + albumpic_big + '\'' +
+                ", albumpic_small='" + albumpic_small + '\'' +
+                ", downUrl='" + downUrl + '\'' +
+                ", url='" + url + '\'' +
+                ", singername='" + singername + '\'' +
+                ", albumid=" + albumid +
+                ", type=" + type +
+                ", isCollected=" + isCollected +
+                '}';
+    }
 }

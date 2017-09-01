@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -14,9 +15,9 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.jcs.music.MyApplication;
 import com.jcs.music.R;
+import com.jcs.music.activity.MusicActivity;
 import com.jcs.music.bean.MusicBean;
 import com.jcs.music.service.MediaPlayerService;
-import com.jcs.music.service.MessengerServiceActivities;
 
 
 /**
@@ -75,7 +76,7 @@ public class MusicNotification extends Notification {
         closeIntent = new Intent();
         closeIntent.setAction(MUSIC_NOTIFICATION_ACTION_CLOSE);
 
-        backIntent = new Intent(MyApplication.mContext, MessengerServiceActivities.Binding.class);
+        backIntent = new Intent(MyApplication.mContext, MusicActivity.class);
     }
 
     /**
@@ -111,6 +112,10 @@ public class MusicNotification extends Notification {
         //4.点击通知返回App
         PendingIntent pendingBackIntent = PendingIntent.getActivity(MyApplication.mContext,REQUEST_CODE,backIntent,PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.notification_contanier,pendingBackIntent);
+
+        //通知栏颜色适配
+        remoteViews.setInt(R.id.tv_song_name, "setTextColor", ColorMine.isDarkNotificationTheme(context)==true? Color.WHITE:Color.BLACK);
+
 
         builder.setContent(remoteViews)
                 .setOngoing(true)//表示正在运行的通知，常用于音乐播放或者文件下载

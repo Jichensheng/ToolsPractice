@@ -83,6 +83,7 @@ public class TService extends Service implements MediaPlayer.OnPreparedListener,
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 				case 3:
+
 					Message message = Message.obtain(null, 3);
 					message.arg1 = 999;
 						play("http://ws.stream.qqmusic.qq.com/200881259.m4a?fromtag=46");

@@ -24,9 +24,10 @@
           </activity>-->
 
 
-        <service android:name=".service.MessengerService"/>
+        <service android:name=".service.MediaPlayerService"/>
         <service android:name=".service.TService"/>
-        <activity android:name=".service.MessengerServiceActivities$Binding"
+        <!--<activity android:name=".service.MessengerServiceActivities$Binding"-->
+        <activity android:name=".activity.MusicActivity"
                   android:label="bind"
                   android:launchMode="singleTop">
             <intent-filter>
