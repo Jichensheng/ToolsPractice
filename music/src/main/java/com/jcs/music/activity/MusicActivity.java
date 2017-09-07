@@ -16,21 +16,21 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.jcs.music.CDView;
 import com.jcs.music.Constant;
 import com.jcs.music.MusicOnSeekBarChangeListeger;
 import com.jcs.music.R;
+import com.jcs.music.VirticleTitleView;
 import com.jcs.music.bean.MockBean;
-import com.jcs.music.bean.MusicBean;
+import com.jcs.music.bean.TalkBean;
 import com.jcs.music.service.MediaPlayerService;
+import com.jcs.music.utils.CircleTransform;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MusicActivity extends AppCompatActivity implements CDView.OnPlayListener, CDView.OnStopListener {
 
@@ -48,7 +48,7 @@ public class MusicActivity extends AppCompatActivity implements CDView.OnPlayLis
 	public int duration;//歌曲的总进度
 	public float mPositionOffset;//viewpager滑动的百分比
 	public int mState;//viewpager的滑动状态
-	public List<MusicBean> mList = new ArrayList<>();
+	public List<TalkBean> mList = new ArrayList<>();
 	public String songNamePlaying;
 	public String singerNamePlaying;
 	private MusicOnSeekBarChangeListeger musicOnSeekBarChangeListeger;//seekbar的监听
@@ -60,6 +60,7 @@ public class MusicActivity extends AppCompatActivity implements CDView.OnPlayLis
 	private TextView textView;
 	private TextView tv_time;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,12 +70,19 @@ public class MusicActivity extends AppCompatActivity implements CDView.OnPlayLis
 		init();
 		initView();
 		initListener();
+
+
+		VirticleTitleView vtv_title= (VirticleTitleView) findViewById(R.id.vtv_title);
+		vtv_title.setTitle("平如美棠书读的");
+		vtv_title.setAuthors("文/季晨生","声/小王婕");
+		vtv_title.startAnimator();
+
 	}
 
 	private void initData() {
-		mList.add(MockBean.musicBean);
-		mList.add(MockBean.musicBean2);
-		mList.add(MockBean.musicBean3);
+		mList.add(MockBean.talkBean1);
+		mList.add(MockBean.talkBean2);
+		mList.add(MockBean.talkBean3);
 	}
 
 	public void init() {
@@ -256,12 +264,12 @@ public class MusicActivity extends AppCompatActivity implements CDView.OnPlayLis
 				case Constant.MEDIA_PLAYER_SERVICE_SONG_PLAYING:
 					Bundle bundle = msgFromService.getData();
 					activity.mList.clear();
-					activity.mList.addAll((List<MusicBean>) bundle.getSerializable(Constant.MEDIA_PLAYER_SERVICE_MODEL_PLAYING));
+					activity.mList.addAll((List<TalkBean>) bundle.getSerializable(Constant.MEDIA_PLAYER_SERVICE_MODEL_PLAYING));
 					if (null != activity.mList && 0 < activity.mList.size()) {
-						textView.setText(mList.get(msgFromService.arg1).getSongname());
-						Glide.with(activity).load(mList.get(msgFromService.arg1).getAlbumpic_big())
-								.bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),cdView.getWidth(),0, RoundedCornersTransformation.CornerType.ALL))
-								.into(cdView);
+						textView.setText(mList.get(msgFromService.arg1).getTitle());
+						Picasso.with(activity.getApplicationContext())
+								.load(mList.get(msgFromService.arg1).getImage())
+								.transform(new CircleTransform()).into(cdView);
 					}
 					break;
 				case Constant.MEDIA_PLAYER_SERVICE_IS_PLAYING:

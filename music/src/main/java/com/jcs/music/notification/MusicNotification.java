@@ -16,7 +16,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.jcs.music.MyApplication;
 import com.jcs.music.R;
 import com.jcs.music.activity.MusicActivity;
-import com.jcs.music.bean.MusicBean;
+import com.jcs.music.bean.TalkBean;
 import com.jcs.music.service.MediaPlayerService;
 
 
@@ -131,15 +131,15 @@ public class MusicNotification extends Notification {
     /**
      * 1  更新通知
      */
-    public void onUpdateMusicNotification(MusicBean bean, boolean isplay){
-        Log.e(TAG,"更新通知--歌曲名称："+ bean.getSongname()+"--isplay:"+isplay);
+    public void onUpdateMusicNotification(TalkBean bean, boolean isplay){
+        Log.e(TAG,"更新通知--歌曲名称："+ bean.getTitle()+"--isplay:"+isplay);
         if (null == bean) return;
         //更新歌曲名称
-        remoteViews.setTextViewText(R.id.tv_song_name,(bean.getSongname() == null ? "" : bean.getSongname()));
+        remoteViews.setTextViewText(R.id.tv_song_name,(bean.getTitle() == null ? "" : bean.getTitle()));
         //更新歌手名字
-        remoteViews.setTextViewText(R.id.tv_singer,(bean.getSingername() == null ? "" : bean.getSingername()));
+        remoteViews.setTextViewText(R.id.tv_singer,(bean.getDj() == null ? "" : bean.getDj()));
         //更新歌曲图片
-        Glide.with(context).load(bean.getAlbumpic_big()).asBitmap().into(new SimpleTarget<Bitmap>() {
+        Glide.with(context).load(bean.getImage()).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 remoteViews.setImageViewBitmap(R.id.img_song, resource);

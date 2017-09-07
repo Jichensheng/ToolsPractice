@@ -26,4 +26,10 @@ public class Constant {
     public static final String MEDIA_PLAYER_SERVICE_MODEL_PLAYING = "song_playing";//服务端正在播放的歌曲
     public static final String MUSIC_LOCAL = "27";//本地音乐
 
+    //LockActivity
+    public static final int LOCK_ACTIVITY = 0x100001;
+    public static final int LOCK_ACTIVITY_PRE = 0x100002;
+    public static final int LOCK_ACTIVITY_NEXT = 0x100003;
+    public static final int LOCK_ACTIVITY_PLAY = 0x100004;
+
 }
