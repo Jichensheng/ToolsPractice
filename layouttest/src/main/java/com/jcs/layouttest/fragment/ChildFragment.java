@@ -33,6 +33,7 @@ public class ChildFragment extends Fragment {
 		recyclerView = (RecyclerView) view.findViewById(R.id.rv_child);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 		recyclerView.setAdapter(new RvAdapter(getContext(), list));
+//		recyclerView.addOnScrollListener(new ImageAutoLoadScrollListener(getContext()));
 		return view;
 	}
 
@@ -42,7 +43,7 @@ public class ChildFragment extends Fragment {
 	 */
 	private List<String> initlist() {
 		List<String> list = new ArrayList<>();
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 200; i++) {
 			list.add("item" + i);
 		}
 		return list;

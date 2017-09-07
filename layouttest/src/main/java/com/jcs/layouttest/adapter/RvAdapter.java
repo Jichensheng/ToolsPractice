@@ -43,7 +43,7 @@ private List<String> list;
 	@Override
 	public void onBindViewHolder(MHolder holder, int position) {
 		holder.textView.setText(list.get(position));
-
+//Todo 圆角
 		Glide.with(context)
 				.load(MockData.URLS[new Random().nextInt(MockData.URLS.length)])
 				.apply(options)
